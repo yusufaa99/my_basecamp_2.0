@@ -1,0 +1,40 @@
+# config/webpacker.yml
+default: &default
+  source_path: app/javascript
+  public_root_path: public
+  public_output_path: packs
+  cache_path: tmp/cache/webpacker
+  # Additional configuration options...
+  resolved_paths: []
+  extensions:
+    - .mjs
+    - .js
+    - .jsx
+    - .coffee
+    - .erb
+    - .scss
+    - .sass
+    - .css
+    - .png
+    - .svg
+    - .gif
+    - .jpeg
+    - .jpg
+
+development:
+  <<: *default
+  compile: true
+  dev_server:
+    host: localhost
+    port: 3035
+    public: localhost:3035
+    hmr: false
+    https: false
+
+test:
+  <<: *default
+  compile: true
+
+production:
+  <<: *default
+  compile: false

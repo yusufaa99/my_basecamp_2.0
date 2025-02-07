@@ -1,0 +1,19 @@
+<h1>Edit Your Profile</h1>
+
+<%= form_for(current_user, url: profile_path, method: :patch) do |f| %>
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label" %>
+    <%= f.email_field :email, class: "form-control", disabled: true %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :name, "Name", class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :bio, "Bio", class: "form-label" %>
+    <%= f.text_area :bio, rows: 4, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.submit "Update Profile", class: "btn btn-primary" %>
+  </div>
+<% end %>
