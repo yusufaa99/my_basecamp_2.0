@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  get "help/index"
-  get "settings/index"
-  get "calendar/index"
-  get "messages/index"
-  get "files/index"
   root "home#index"
   get 'dashboard', to: 'dashboard#index'
 
@@ -16,6 +11,13 @@ Rails.application.routes.draw do
   # Admin user management routes
   namespace :admin do
     resources :users, only: [:index, :edit, :update, :destroy]
+    
+    get 'dashboard', to: 'dashboard#index', as: :dashboard
+    get 'projects', to: 'projects#index', as: :projects
+    get 'settings', to: 'settings#index', as: :settings
+    get 'reports', to: 'reports#index', as: :reports
+    get 'integrations', to: 'integrations#index', as: :integrations
+    get 'security', to: 'security#index', as: :security
   end
 
   # Placeholder routes for other features:
@@ -31,5 +33,5 @@ Rails.application.routes.draw do
 
 
   # A simple home controller route (if needed)
-  get "home/index"
+  # get "home/index"
 end
