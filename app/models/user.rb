@@ -1,17 +1,19 @@
 class User < ApplicationRecord
-  # Include default devise modules. Available modules are:
-  # :confirmable, :lockable, :timeoutable, :trackable, :omniauthable
+  # Devise modules...
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # Validation for additional profile fields
   validates :email, presence: true, uniqueness: true
 
-  # Optional: If you add extra fields (e.g., name, bio)
+  # For profile fields (if added)
   # validates :name, presence: true
 
-  # Helper method to check if the user is admin
+  # Check if the user is a site-wide admin (from Milestone 1)
   def admin?
     self.admin == true
   end
+
+  # Associations for projects membership
+  has_many :project_memberships, dependent: :destroy
+  has_many :projects, through: :project_memberships
 end

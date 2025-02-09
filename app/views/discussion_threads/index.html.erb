@@ -1,0 +1,29 @@
+<h1>Discussion Threads</h1>
+
+<%= link_to "New Thread", new_discussion_thread_path, class: "btn btn-primary mb-3" %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Created By</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @discussion_threads.each do |thread| %>
+      <tr>
+        <td><%= link_to thread.title, discussion_thread_path(thread) %></td>
+        <td><%= thread.user.email %></td>
+        <td>
+          <% if thread.user == current_user %>
+            <%= link_to "Edit", edit_discussion_thread_path(thread), class: "btn btn-sm btn-secondary" %>
+            <%= link_to "Delete", discussion_thread_path(thread), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @discussion_threads %>

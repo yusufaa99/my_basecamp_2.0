@@ -1,0 +1,24 @@
+<h1>Invite a Member</h1>
+
+<%= form_with model: [@project, @invitation], local: true do |f| %>
+  <% if @invitation.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @invitation.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label" %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.submit "Send Invitation", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= link_to "Back to Project", project_path(@project), class: "btn btn-secondary" %>

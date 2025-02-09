@@ -1,0 +1,19 @@
+<h1><%= @project.title %></h1>
+<p><strong>Description:</strong> <%= @project.description %></p>
+<p><strong>Deadline:</strong> <%= @project.deadline.strftime("%B %d, %Y") if @project.deadline %></p>
+<p><strong>Created by:</strong> <%= @project.creator.email %></p>
+
+<hr>
+<h2>Project Members</h2>
+<ul>
+  <% @project.project_memberships.each do |membership| %>
+    <li>
+      <%= membership.user.email %> (<%= membership.role %>)
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Invite Member", new_project_project_invitation_path(@project), class: "btn btn-primary" %>
+<%= link_to "Edit Project", edit_project_path(@project), class: "btn btn-secondary" %>
+<%= link_to "Back to Projects", projects_path, class: "btn btn-secondary" %>
+
