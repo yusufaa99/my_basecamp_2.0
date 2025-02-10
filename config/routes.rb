@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "attachments/create"
+  get "attachments/destroy"
   root "home#index"
   get 'dashboard', to: 'dashboard#index'
 
@@ -19,8 +21,9 @@ Rails.application.routes.draw do
   resources :projects do
     resources :discussion_threads, only: [:index, :new, :create]
     resources :project_invitations, only: [:new, :create]
+    resources :attachments, only: [:create, :destroy]
   end
-  
+
   resources :notifications, only: [:index] do
     member do
       patch :mark_as_read
