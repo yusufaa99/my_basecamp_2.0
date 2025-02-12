@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "attachments/create"
-  get "attachments/destroy"
   root "home#index"
   get 'dashboard', to: 'dashboard#index'
 

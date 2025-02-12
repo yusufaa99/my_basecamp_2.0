@@ -32,9 +32,10 @@
           <td><%= attachment.file_format %></td>
           <td><%= attachment.user.email %></td>
           <td>
-            <%= link_to "Delete", project_attachment_path(@project, attachment), 
-                        method: :delete, data: { confirm: "Are you sure?" }, 
-                        class: "btn btn-sm btn-danger" %>
+          <%= button_to "Delete", project_attachment_path(@project, attachment), 
+                            method: :delete, data: { confirm: "Are you sure?" }, 
+                            class: "btn btn-sm btn-danger" %>
+
           </td>
         </tr>
       <% end %>

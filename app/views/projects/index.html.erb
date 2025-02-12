@@ -18,7 +18,8 @@
         <td>
           <% if project.creator == current_user || project.project_memberships.find_by(user: current_user)&.role == "admin" %>
             <%= link_to "Edit", edit_project_path(project), class: "btn btn-sm btn-secondary" %>
-            <%= link_to "Delete", project_path(project), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+            <%= button_to "Delete", project_path(project), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+
           <% end %>
         </td>
       </tr>
