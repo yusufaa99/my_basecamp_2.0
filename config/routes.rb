@@ -15,12 +15,15 @@ Rails.application.routes.draw do
     get 'security', to: 'security#index', as: :security
   end
 
-  # Nest discussion threads under projects for creation
+  
   resources :projects do
-    resources :discussion_threads, only: [:index, :new, :create]
     resources :project_invitations, only: [:new, :create]
     resources :attachments, only: [:create, :destroy]
+    resources :project_threads, only: [:new, :create, :edit, :update, :destroy] do
+      resources :messages, only: [:create, :edit, :update, :destroy]
+    end
   end
+  
 
   resources :notifications, only: [:index] do
     member do
@@ -36,15 +39,12 @@ Rails.application.routes.draw do
   get 'invitations/accept/:token', to: 'invitations#accept', as: :accept_invitation
   get 'invitations/decline/:token', to: 'invitations#decline', as: :decline_invitation
 
-  # Standalone routes for threads (for show, edit, update, destroy)
-  resources :discussion_threads, only: [:show, :edit, :update, :destroy] do
-    resources :messages, only: [:create, :edit, :update, :destroy]
-  end
+  
 
   # Other placeholder routes...
   resources :tasks, only: [:index]
   resources :files, only: [:index]
-  resources :messages, only: [:index]
+  
   get 'settings', to: 'settings#index'
 
   get 'calendar', to: 'calendar#index'
