@@ -1,56 +1,67 @@
 class MessagesController < ApplicationController
+  before_action :set_project
   before_action :set_thread
-  before_action :set_message, only: [:edit, :update, :destroy]
-  before_action :authorize_member, only: [:create]
-  before_action :authorize_owner, only: [:edit, :update, :destroy]
+  before_action :authorize_project_member
 
   def create
-    @message = @thread.messages.new(message_params)
+    Rails.logger.debug "Received params: #{params.inspect}" # 🔍 Debugging
+    @project_thread = ProjectThread.find(params[:project_thread_id])
+    @message = @project_thread.messages.build(message_params)
     @message.user = current_user
+  
     if @message.save
-      redirect_to project_path(@thread.project), notice: "Message posted successfully."
+      flash[:notice] = "Message posted!"
+      redirect_to request.referer || project_path(@project_thread.project)
     else
-      redirect_to project_path(@thread.project), alert: "Message cannot be empty."
+      flash[:alert] = "Message failed to send."
+      render "project_threads/show"
     end
   end
-
+  
+  
+  
   def edit
+    @message = @thread.messages.find(params[:id])
   end
 
   def update
+    @message = @thread.messages.find(params[:id])
+
     if @message.update(message_params)
-      redirect_to project_path(@thread.project), notice: "Message updated successfully."
+      redirect_to @project, notice: "Message updated successfully."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
+    @message = @thread.messages.find(params[:id])
     @message.destroy
-    redirect_to project_path(@thread.project), notice: "Message deleted successfully."
+    redirect_to @project, notice: "Message deleted successfully."
   end
 
   private
 
-  def set_thread
-    @thread = ProjectThread.find(params[:project_thread_id])
+  def set_project
+    @project = Project.find(params[:project_id])
   end
 
-  def set_message
-    @message = @thread.messages.find(params[:id])
+  def set_thread
+    @thread = @project.project_threads.find(params[:project_thread_id])
   end
+
+  # def message_params
+  #   params.require(:message).permit(:content)
+  # end
 
   def message_params
-    params.require(:message).permit(:content)
+    params.require(:message).permit(:content, :project_thread_id)  # Ensure project_thread_id is permitted
   end
 
-  def authorize_member
-    unless @thread.project.project_memberships.exists?(user_id: current_user.id)
-      redirect_to project_path(@thread.project), alert: "You must be a project member to post messages."
+
+  def authorize_project_member
+    unless @project.project_memberships.exists?(user_id: current_user.id)
+      redirect_to @project, alert: "You are not allowed to post messages."
     end
-  end
-
-  def authorize_owner
-    redirect_to project_path(@thread.project), alert: "You can only edit or delete your own messages." unless current_user == @message.user
   end
 end

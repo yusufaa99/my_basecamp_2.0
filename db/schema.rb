@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_12_135531) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_13_094818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -39,10 +39,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_135531) do
   create_table "messages", force: :cascade do |t|
     t.text "content"
     t.bigint "user_id", null: false
-    t.bigint "discussion_thread_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["discussion_thread_id"], name: "index_messages_on_discussion_thread_id"
+    t.bigint "project_thread_id", null: false
+    t.index ["project_thread_id"], name: "index_messages_on_project_thread_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -85,6 +85,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_135531) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
     t.index ["project_id"], name: "index_project_threads_on_project_id"
     t.index ["user_id"], name: "index_project_threads_on_user_id"
   end
@@ -118,7 +119,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_135531) do
   add_foreign_key "attachments", "users"
   add_foreign_key "discussion_threads", "projects"
   add_foreign_key "discussion_threads", "users"
-  add_foreign_key "messages", "discussion_threads"
+  add_foreign_key "messages", "project_threads"
   add_foreign_key "messages", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "project_invitations", "projects"

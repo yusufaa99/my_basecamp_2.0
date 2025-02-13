@@ -1,0 +1,17 @@
+<h1><%= @project_thread.title %></h1>
+<p><%= @project_thread.description %></p>
+
+<h3>Messages</h3>
+<ul>
+  <% @project_thread.messages.each do |message| %>
+    <li><strong><%= message.user.email %></strong>: <%= message.content %></li>
+  <% end %>
+</ul>
+
+
+<div id="messages">
+  <ul>
+    <%= render @project_thread.messages %>
+  </ul>
+</div>
+

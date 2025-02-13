@@ -46,25 +46,6 @@
 <% end %>
 
 <hr>
-<h2>Threads</h2>
-
-<% if @project.project_threads.any? %>
-  <ul>
-    <% @project.project_threads.each do |thread| %>
-      <li>
-        <strong><%= thread.title %></strong> (Created by: <%= thread.user.email %>)
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No threads yet.</p>
-<% end %>
-<% if current_user == @project.creator %>
-  <%= link_to "Create Thread", new_project_project_thread_path(@project), class: "btn btn-primary" %>
-<% end %>
-
-
-<hr>
 <h3>Add a New Attachment</h3>
 <%= form_with model: [@project, Attachment.new], local: true do |f| %>
   <div class="mb-3">
@@ -81,6 +62,59 @@
     <%= f.submit "Add Attachment", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<hr>
+<h2>Threads</h2>
+
+<% if @project.project_threads.any? %>
+  <ul>
+    <% @project.project_threads.each do |thread| %>
+      <li>
+        <strong><%= thread.title %></strong> (Created by: <%= thread.user.email %>)
+
+        <% if current_user == @project.creator %>
+          <%= link_to "Edit", edit_project_project_thread_path(@project, thread), class: "btn btn-sm btn-warning" %>
+          <%= button_to "Delete", project_project_thread_path(@project, thread), 
+                method: :delete, data: { confirm: "Are you sure?" }, 
+                class: "btn btn-sm btn-danger" %>
+        <% end %>
+
+        <!-- Display Messages -->
+        <ul>
+          <% thread.messages.each do |message| %>
+            <li>
+              <p><%= message.content %> - <small>By <%= message.user.email %></small></p>
+
+              <% if message.user == current_user %>
+                <%= link_to "Edit", edit_project_project_thread_message_path(@project, thread, message), class: "btn btn-sm btn-secondary" %>
+                <%= button_to "Delete", project_project_thread_message_path(@project, thread, message), 
+                      method: :delete, data: { confirm: "Are you sure?" }, 
+                      class: "btn btn-sm btn-danger" %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+
+        <!-- Message Form -->
+        <h4>Post a Message</h4>
+        <%= form_with model: [@project, thread, Message.new], local: true do |f| %>
+          <div class="mb-3">
+            <%= f.text_area :content, class: "form-control", placeholder: "Write a message..." %>
+          </div>
+          <%= f.submit "Post", class: "btn btn-primary" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No threads yet.</p>
+<% end %>
+
+
+<% if current_user == @project.creator %>
+  <%= link_to "Create Thread", new_project_project_thread_path(@project), class: "btn btn-primary" %>
+<% end %>
+
 
 <hr>
 <%= link_to "Invite Member", new_project_project_invitation_path(@project), class: "btn btn-primary" %>
