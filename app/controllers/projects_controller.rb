@@ -52,6 +52,62 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, notice: "Project was successfully deleted."
   end
 
+  def promote_to_admin
+    project = Project.find(params[:id])
+    user = User.find(params[:user_id])
+  
+    if project.creator == current_user
+      membership = project.project_memberships.find_by(user: user)
+      
+      if membership && membership.update(role: "admin")
+        flash[:notice] = "#{user.email} is now an admin!"
+      else
+        flash[:alert] = "Failed to update user role."
+      end
+    else
+      flash[:alert] = "You are not authorized to promote users."
+    end
+  
+    redirect_to project_path(project)
+  end
+  
+  def remove_member
+    project = Project.find(params[:id])
+    user = User.find(params[:user_id])
+  
+    if project.creator == current_user
+      membership = project.project_memberships.find_by(user: user)
+      
+      if membership && membership.destroy
+        flash[:notice] = "#{user.email} has been removed from the project."
+      else
+        flash[:alert] = "Failed to remove user."
+      end
+    else
+      flash[:alert] = "You are not authorized to remove users."
+    end
+  
+    redirect_to project_path(project)
+  end
+
+  def demote_to_member
+    @project = Project.find(params[:id])  # Ensure @project is assigned
+  
+    user = User.find(params[:user_id])
+    membership = @project.project_memberships.find_by(user: user)
+  
+    if membership&.role == "admin" && membership.update(role: "member")
+      flash[:notice] = "#{user.email} has been demoted to a member."
+    else
+      flash[:alert] = "Failed to demote user."
+    end
+  
+    redirect_to project_path(@project)
+  end
+  
+  
+  
+
   private
 
   def set_project

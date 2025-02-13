@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   before_action :set_project
   before_action :set_thread
   before_action :authorize_project_member
+  before_action :set_project_and_thread
 
   def create
     Rails.logger.debug "Received params: #{params.inspect}" # 🔍 Debugging
@@ -33,12 +34,21 @@ class MessagesController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-
+  
   def destroy
-    @message = @thread.messages.find(params[:id])
-    @message.destroy
-    redirect_to @project, notice: "Message deleted successfully."
+    @message = @project_thread.messages.find(params[:id])
+
+    if @message.destroy
+      flash[:notice] = "Message deleted successfully."
+    else
+      flash[:alert] = "Message could not be deleted."
+    end
+
+    redirect_to project_path(@project) # 🔥 Redirects to project show page
   end
+
+  
+  
 
   private
 
@@ -50,6 +60,11 @@ class MessagesController < ApplicationController
     @thread = @project.project_threads.find(params[:project_thread_id])
   end
 
+  def set_project_and_thread
+    @project = Project.find(params[:project_id])
+    @project_thread = @project.project_threads.find(params[:project_thread_id])
+  end
+
   # def message_params
   #   params.require(:message).permit(:content)
   # end
@@ -58,7 +73,7 @@ class MessagesController < ApplicationController
     params.require(:message).permit(:content, :project_thread_id)  # Ensure project_thread_id is permitted
   end
 
-
+  
   def authorize_project_member
     unless @project.project_memberships.exists?(user_id: current_user.id)
       redirect_to @project, alert: "You are not allowed to post messages."

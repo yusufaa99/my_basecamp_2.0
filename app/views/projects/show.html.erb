@@ -9,9 +9,25 @@
   <% @project.project_memberships.each do |membership| %>
     <li>
       <%= membership.user.email %> (<%= membership.role %>)
+
+      <% if current_user == @project.creator && membership.user != @project.creator %>
+        <% if membership.role == "member" %>
+          <%= button_to "Make Admin", promote_to_admin_project_path(@project, user_id: membership.user.id), 
+                method: :patch, class: "btn btn-sm btn-success" %>
+        <% elsif membership.role == "admin" %>
+          <%= button_to "Demote to Member", demote_to_member_project_path(@project, membership.user.id), 
+                method: :patch, class: "btn btn-sm btn-warning" %>
+        <% end %>
+
+
+        <%= button_to "Remove", remove_member_project_path(@project, user_id: membership.user.id), 
+              method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+      <% end %>
     </li>
   <% end %>
 </ul>
+
+
 
 <hr>
 <h2>Attachments</h2>
@@ -35,7 +51,6 @@
           <%= button_to "Delete", project_attachment_path(@project, attachment), 
                             method: :delete, data: { confirm: "Are you sure?" }, 
                             class: "btn btn-sm btn-danger" %>
-
           </td>
         </tr>
       <% end %>
@@ -75,7 +90,7 @@
         <% if current_user == @project.creator %>
           <%= link_to "Edit", edit_project_project_thread_path(@project, thread), class: "btn btn-sm btn-warning" %>
           <%= button_to "Delete", project_project_thread_path(@project, thread), 
-                method: :delete, data: { confirm: "Are you sure?" }, 
+                method: :delete, data: { confirm: "Are you sure you want to delete this thread?" }, 
                 class: "btn btn-sm btn-danger" %>
         <% end %>
 
@@ -85,10 +100,10 @@
             <li>
               <p><%= message.content %> - <small>By <%= message.user.email %></small></p>
 
-              <% if message.user == current_user %>
+              <% if message.user == current_user || @project.project_memberships.find_by(user: current_user, role: "admin") %>
                 <%= link_to "Edit", edit_project_project_thread_message_path(@project, thread, message), class: "btn btn-sm btn-secondary" %>
                 <%= button_to "Delete", project_project_thread_message_path(@project, thread, message), 
-                      method: :delete, data: { confirm: "Are you sure?" }, 
+                      method: :delete, data: { confirm: "Are you sure you want to delete this message?" }, 
                       class: "btn btn-sm btn-danger" %>
               <% end %>
             </li>
@@ -110,10 +125,10 @@
   <p>No threads yet.</p>
 <% end %>
 
-
 <% if current_user == @project.creator %>
   <%= link_to "Create Thread", new_project_project_thread_path(@project), class: "btn btn-primary" %>
 <% end %>
+
 
 
 <hr>
