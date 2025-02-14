@@ -20,7 +20,9 @@
         <td><%= task.status.capitalize %></td>
         <td><%= task.try(:due_date)&.strftime("%b %d, %Y") || "No due date" %></td>
         <td><%= task.try(:priority) || "Not Set" %></td>
-        <td><%= task.assigned_to ? User.find(task.assigned_to).name : "Unassigned" %></td>
+        
+        <td><%= task.assigned_user ? task.assigned_user.name : "Unassigned" %></td>
+
         <td>
           <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-sm btn-warning" %>
           <%= button_to "Delete", project_task_path(@project, task), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
