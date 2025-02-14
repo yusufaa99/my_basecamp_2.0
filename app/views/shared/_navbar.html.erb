@@ -39,8 +39,21 @@
               <%= link_to "Projects", projects_path, class: "nav-link" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Tasks", tasks_path, class: "nav-link" %>
+              <% if @project&.persisted? %> 
+                <%= link_to "Tasks", project_tasks_path(@project), class: "nav-link" %>
+              <% elsif Project.exists? %>
+                <% first_project = Project.first %>
+                <%= link_to "Tasks", project_tasks_path(first_project), class: "nav-link" if first_project %>
+              <% end %>
             </li>
+
+
+
+
+            
+            
+
+            
             <li class="nav-item">
               <%= link_to "Files", files_path, class: "nav-link" %>
             </li>

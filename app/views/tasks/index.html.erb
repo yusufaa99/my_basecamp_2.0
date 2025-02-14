@@ -1,2 +1,31 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<h2>Tasks for <%= @project.title %></h2>
+
+<%= link_to "New Task", new_project_task_path(@project), class: "btn btn-primary mb-3" %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Due Date</th>
+      <th>Priority</th>
+      <th>Assigned To</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.status.capitalize %></td>
+        <td><%= task.try(:due_date)&.strftime("%b %d, %Y") || "No due date" %></td>
+        <td><%= task.try(:priority) || "Not Set" %></td>
+        <td><%= task.assigned_to ? User.find(task.assigned_to).name : "Unassigned" %></td>
+        <td>
+          <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-sm btn-warning" %>
+          <%= button_to "Delete", project_task_path(@project, task), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

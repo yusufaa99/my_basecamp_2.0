@@ -1,9 +1,25 @@
-<h1>Notifications</h1>
-<% @notifications.each do |notification| %>
-  <div class="alert <%= notification.read ? 'alert-secondary' : 'alert-info' %>">
-    <%= notification.content %>
-    <% unless notification.read %>
-      <%= link_to "Mark as read", mark_as_read_notification_path(notification), method: :patch, class: "btn btn-sm btn-link" %>
+<h2>Notifications</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Message</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @notifications.each do |notification| %>
+      <tr>
+        <td><%= notification.message %></td>
+        <td><%= notification.read? ? "Read" : "Unread" %></td>
+        <td>
+          <% unless notification.read? %>
+            <%= link_to "Mark as Read", mark_as_read_notification_path(notification), method: :patch, class: "btn btn-sm btn-success" %>
+          <% end %>
+          <%= button_to "Delete", notification_path(notification), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
     <% end %>
-  </div>
-<% end %>
+  </tbody>
+</table>

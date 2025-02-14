@@ -12,6 +12,9 @@ class Project < ApplicationRecord
   has_many :project_threads, dependent: :destroy  # Ensure association with threads
 
   has_many :attachments, dependent: :destroy  # <-- new association
+  has_many :tasks, dependent: :destroy
+  
+  validates :creator, presence: true
 
   validates :title, presence: true
   validates :deadline, presence: true

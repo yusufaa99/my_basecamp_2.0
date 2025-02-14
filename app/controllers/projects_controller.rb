@@ -31,6 +31,7 @@ class ProjectsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+    
   end
 
   # GET /projects/1/edit

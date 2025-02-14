@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :project_invitations, only: [:new, :create]
     resources :attachments, only: [:create, :destroy]
+    resources :tasks
     resources :project_threads, only: [:new, :create, :show, :edit, :update, :destroy] do
       resources :messages, only: [:create, :edit, :update, :destroy]
     end
@@ -31,7 +32,7 @@ Rails.application.routes.draw do
   end
   
 
-  resources :notifications, only: [:index] do
+  resources :notifications, only: [:index, :destroy] do
     member do
       patch :mark_as_read
     end
@@ -48,7 +49,7 @@ Rails.application.routes.draw do
   
 
   # Other placeholder routes...
-  resources :tasks, only: [:index]
+  # resources :tasks, only: [:index]
   resources :files, only: [:index]
   
   get 'settings', to: 'settings#index'

@@ -16,4 +16,8 @@ class User < ApplicationRecord
   # Associations for projects membership
   has_many :project_memberships, dependent: :destroy
   has_many :projects, through: :project_memberships
+
+  has_many :tasks, through: :projects, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :activities, dependent: :destroy
 end
