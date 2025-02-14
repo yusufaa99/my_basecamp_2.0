@@ -18,7 +18,7 @@ class AttachmentsController < ApplicationController
   # DELETE /projects/:project_id/attachments/:id
   def destroy
     @attachment = @project.attachments.find(params[:id])
-    # Optionally, you can add further authorization here (e.g. only the uploader or a project admin can delete)
+    
     if @attachment.user == current_user || project_admin?
       @attachment.destroy
       redirect_to project_path(@project), notice: "Attachment was successfully removed."
@@ -34,11 +34,9 @@ class AttachmentsController < ApplicationController
   end
 
   def attachment_params
-    # Expecting params like { attachment: { file_url: "...", file_format: "png" } }
-    params.require(:attachment).permit(:file_url, :file_format)
+    params.require(:attachment).permit(:file, :file_url, :file_format)
   end
 
-  # Ensure that the current user is a member of the project
   def authorize_user!
     unless @project.members.include?(current_user) || @project.creator == current_user
       redirect_to projects_path, alert: "You are not authorized to add attachments to this project."
