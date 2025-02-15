@@ -9,6 +9,19 @@ class AttachmentsController < ApplicationController
     @attachment.user = current_user
 
     if @attachment.save
+      # Notify all project members except uploader
+      @project.members.where.not(id: current_user.id).each do |member|
+        Notification.create(
+          user: member,
+          message: "#{current_user.email} uploaded a new file to #{@project.title}.",
+          url: project_path(@project),
+          read: false
+        )
+        NotificationsChannel.broadcast_to(
+          member, { count: member.notifications.unread.count }
+        )
+      end
+
       redirect_to project_path(@project), notice: "Attachment was successfully added."
     else
       redirect_to project_path(@project), alert: "Failed to add attachment: #{@attachment.errors.full_messages.to_sentence}"

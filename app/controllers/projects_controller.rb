@@ -106,24 +106,13 @@ class ProjectsController < ApplicationController
     redirect_to project_path(@project)
   end
   
-  
-  
 
   private
 
-  # def set_project
-  #   @project = Project.find(params[:id])
-  # end
-  # def set_project
-  #   @project = Project.find(params[:project_id] || params[:id])
-  # end
   def set_project
     Rails.logger.debug "Received Params: #{params.inspect}" # Logs params for debugging
     @project = Project.find(params[:project_id] || params[:id])
   end
-  
-  
-  
 
   def project_params
     params.require(:project).permit(:title, :description, :deadline)

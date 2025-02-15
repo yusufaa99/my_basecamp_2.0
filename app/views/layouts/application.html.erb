@@ -15,6 +15,29 @@
     <!-- Render the shared navbar partial -->
     <%= render "shared/navbar" %>
 
+    <% if user_signed_in? %>
+      <!-- Notifications Dropdown -->
+      <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+        <div class="dropdown">
+          <button class="btn btn-danger dropdown-toggle" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            🔔 <span id="notification-count" class="badge bg-light text-dark"><%= current_user.notifications.unread.count %></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+            <% if current_user.notifications.any? %>
+              <% current_user.notifications.order(created_at: :desc).limit(5).each do |notification| %>
+                <%= render "notifications/notification", notification: notification %>
+              <% end %>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "View All", notifications_path, class: "dropdown-item text-center" %></li>
+            <% else %>
+              <li><p class="dropdown-item text-muted text-center">No new notifications</p></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+    
+
     <div class="container mt-4">
       <% flash.each do |type, message| %>
         <% alert_class = case type.to_sym

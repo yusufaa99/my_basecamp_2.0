@@ -11,38 +11,33 @@ class TasksController < ApplicationController
     @task = @project.tasks.new
   end
 
-  # def create
-  #   @task = @project.tasks.new(task_params)
-  #   @task.user = current_user
-
-  #   if @task.save
-  #     redirect_to project_path(@project), notice: "Task created successfully!"
-  #   else
-  #     render :new, status: :unprocessable_entity
-  #   end
-  # end
-  # def create
-  #   @project = Project.find(params[:project_id])  # Get the project
-  #   @task = @project.tasks.build(task_params)  # Assign the task to the project
-  
-  #   if @task.save
-  #     redirect_to project_tasks_path(@project), notice: "Task was successfully created."
-  #   else
-  #     render :new, status: :unprocessable_entity  # Shows validation errors
-  #   end
-  # end
   def create
     @task = @project.tasks.new(task_params)
     @task.user_id = task_params[:user_id] # Explicitly assign the user_id
   
     if @task.save
+      # Notify assigned user
+      assigned_user = User.find(@task.user_id)
+      Notification.create(
+        user: assigned_user,
+        message: "You have been assigned a task: #{@task.title}.",
+        url: project_task_path(@project, @task),
+        read: false
+      )
+      NotificationsChannel.broadcast_to(
+        assigned_user, { count: assigned_user.notifications.unread.count }
+      )
+
       redirect_to project_path(@project), notice: "Task was successfully created."
     else
       puts @task.errors.full_messages # Debugging: Print errors to the console
       render :new, status: :unprocessable_entity
     end
   end
-  
+
+  def show
+    @task = @project.tasks.find(params[:id])  
+  end
   
   
   

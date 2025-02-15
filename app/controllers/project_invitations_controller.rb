@@ -14,11 +14,27 @@ class ProjectInvitationsController < ApplicationController
 
     if @invitation.save
       ProjectInvitationMailer.with(invitation: @invitation).invite_email.deliver_later
+      
+      # Notify the invited user if they already have an account
+      user = User.find_by(email: @invitation.email)
+      if user
+        Notification.create(
+          user: user,
+          message: "You have been invited to join the project: #{@project.title}.",
+          url: project_path(@project),
+          read: false
+        )
+        NotificationsChannel.broadcast_to(
+          user, { count: user.notifications.unread.count }
+        )
+      end
+
       redirect_to @project, notice: "Invitation sent to #{@invitation.email}."
     else
       render :new, status: :unprocessable_entity
     end    
   end
+  
 
   private
 

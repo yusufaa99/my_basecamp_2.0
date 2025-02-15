@@ -11,6 +11,20 @@ class MessagesController < ApplicationController
     @message.user = current_user
   
     if @message.save
+      # Notify all project members except sender
+      @project_thread.project.members.where.not(id: current_user.id).each do |member|
+        Notification.create(
+          user: member,
+          message: "#{current_user.email} posted a message in #{@project_thread.title}.",
+          url: project_project_thread_path(@project_thread.project, @project_thread),
+
+          read: false
+        )
+        NotificationsChannel.broadcast_to(
+          member, { count: member.notifications.unread.count }
+        )
+      end
+
       flash[:notice] = "Message posted!"
       redirect_to request.referer || project_path(@project_thread.project)
     else

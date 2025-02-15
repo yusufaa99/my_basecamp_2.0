@@ -10,13 +10,27 @@ class ProjectThreadsController < ApplicationController
   def create
     @thread = @project.project_threads.new(thread_params)
     @thread.user = current_user  # Assign the creator of the thread
-
+  
     if @thread.save
+      # Notify all project members except the thread creator
+      @project.members.where.not(id: current_user.id).each do |member|
+        Notification.create(
+          user: member,
+          message: "#{current_user.email} started a new thread in #{@project.title}.",
+          url: project_project_thread_path(@project, @thread), # ✅ Correct path helper
+          read: false
+        )
+        NotificationsChannel.broadcast_to(
+          member, { count: member.notifications.unread.count }
+        )
+      end
+  
       redirect_to @project, notice: "Thread created successfully."
     else
       render :new, status: :unprocessable_entity
     end
   end
+  
 
   def show
     @project_thread = ProjectThread.find(params[:id])

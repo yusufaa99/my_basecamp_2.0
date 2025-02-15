@@ -3,7 +3,7 @@
     <!-- Welcome & User Info -->
     <div class="col-md-12">
       <div class="card shadow-sm border-0 rounded-lg p-4 text-center bg-primary text-white">
-        <h1 class="fw-bold">Welcome, <%= current_user.email %>!</h1>
+        <h1 class="fw-bold">Welcome, <%= current_user.name %>!</h1>
         <p class="lead">Manage your projects efficiently from here.</p>
       </div>
     </div>
@@ -28,13 +28,15 @@
     </div>
 
 
+    <!-- Notifications Section -->
     <div class="col-md-4">
       <div class="card shadow-sm border-0 p-3 text-center">
         <h4 class="fw-bold text-danger">Unread Notifications</h4>
-        <p class="display-6"><%= current_user.notifications.unread.count %></p>
+        <p class="display-6" id="notification-count"><%= current_user.notifications.unread.count %></p>
         <%= link_to "View Notifications", notifications_path, class: "btn btn-outline-danger btn-sm mt-2" %>
       </div>
     </div>
+
 
   </div>
 
