@@ -1,2 +1,42 @@
-<h1>StaticPages#contact</h1>
-<p>Find me in app/views/static_pages/contact.html.erb</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Us - Project Hub</title>
+  <%= stylesheet_link_tag 'contact', media: 'all' %>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="contact-hero">
+    <div class="overlay"></div>
+    <div class="contact-content">
+      <h1>Contact Us</h1>
+      <p>We'd love to hear from you! Get in touch with us for any inquiries.</p>
+    </div>
+  </div>
+
+  <!-- Contact Form Section -->
+  <div class="contact-section">
+    <h2>Send Us a Message</h2>
+    <form action="#" method="post">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Send Message</button>
+    </form>
+  </div>
+
+</body>
+</html>

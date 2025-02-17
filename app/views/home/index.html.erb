@@ -1,2 +1,24 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project Hub</title>
+  <%= stylesheet_link_tag 'home', media: 'all' %>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>Welcome to My BaseCamp!!! Organize, Collaborate, and Succeed</h1>
+      <p>A simple and efficient way to manage your projects, collaborate with your team, and stay organized..</p>
+      <% if user_signed_in? %>
+        <a href="<%= projects_path %>" class="btn-primary">Go to Your Projects</a>
+      <% else %>
+        <a href="<%= new_user_registration_path %>" class="btn-success">Get Started</a>
+      <% end %>
+    </div>
+  </div>
+
+</body>
+</html>
