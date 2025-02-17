@@ -73,3 +73,39 @@ body {
     margin: 10px 0;
   }
   
+  /* CEO Section */
+.ceo-section {
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.ceo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: auto;
+}
+
+.ceo-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ceo-info h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.ceo-info h3 {
+  font-size: 22px;
+  color: #3498db;
+}
+
+.ceo-info p {
+  font-size: 16px;
+  margin-top: 5px;
+}

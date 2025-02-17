@@ -49,17 +49,17 @@ Rails.application.routes.draw do
   
 
   # Other placeholder routes...
-  # resources :tasks, only: [:index]
   resources :files, only: [:index]
-  
-  get 'settings', to: 'settings#index'
 
+  get 'settings', to: 'settings#index'
   get 'calendar', to: 'calendar#index'
   get 'help', to: 'help#index'
   get 'pricing', to: 'static_pages#pricing', as: :pricing
   get 'about', to: 'static_pages#about', as: :about
   get 'blog', to: 'static_pages#blog', as: :blog
-  get 'contact', to: 'static_pages#contact', as: :contact
   get 'terms', to: 'static_pages#terms', as: :terms
   get 'search', to: 'static_pages#search', as: :search
+  get "contact", to: "static_pages#contact", as: :contact
+  post "contact", to: "static_pages#send_message"
+
 end
