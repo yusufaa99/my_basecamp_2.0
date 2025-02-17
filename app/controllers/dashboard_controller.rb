@@ -5,5 +5,4 @@ class DashboardController < ApplicationController
     @projects = current_user.projects
     @project = @projects.first # This picks the first project for buttons like "Create Task" or "Invite Members"
   end
-  
 end

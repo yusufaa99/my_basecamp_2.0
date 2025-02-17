@@ -23,9 +23,15 @@
       <div class="card shadow-sm border-0 p-3 text-center">
         <h4 class="fw-bold text-success">Tasks Pending</h4>
         <p class="display-6"><%= current_user.tasks.where(status: 'pending').count %></p>
-        <%= link_to "View Tasks", project_tasks_path(@project), class: "btn btn-primary" %>
+        
+        <% if @project.present? %>
+          <%= link_to "View Tasks", project_tasks_path(@project), class: "btn btn-primary" %>
+        <% else %>
+          <p class="text-muted">No project selected.</p>
+        <% end %>
       </div>
     </div>
+
 
 
     <!-- Notifications Section -->
@@ -47,13 +53,17 @@
         <h4 class="fw-bold">Quick Actions</h4>
         <div class="d-flex flex-wrap gap-2 mt-2">
           <%= link_to "Create Project", new_project_path, class: "btn btn-primary" %>
-          <% if @project %>
+          
+          <% if @project.present? %>
             <%= link_to "Create Task", new_project_task_path(@project), class: "btn btn-success" %>
+            <%= link_to "Invite Members", new_project_project_invitation_path(@project), class: "btn btn-warning" %>
+          <% else %>
+            <p class="text-muted">Select a project to create tasks or invite members.</p>
           <% end %>
-          <%= link_to "Invite Members", new_project_project_invitation_path(@project), class: "btn btn-warning" %>
         </div>
       </div>
     </div>
+
 
     <!-- Activity Feed -->
     <div class="col-md-6">
