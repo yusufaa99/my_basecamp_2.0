@@ -27,6 +27,7 @@ gem "sass-rails"
 gem "webpacker"
 
 gem "will_paginate"
+# gem "kaminari"
 
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

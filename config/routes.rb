@@ -8,12 +8,13 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'dashboard', to: 'dashboard#index', as: :dashboard
     resources :users, only: [:index, :edit, :update, :destroy]
-    get 'projects', to: 'projects#index', as: :projects
+    resources :projects, only: [:index, :show, :edit, :update, :destroy]
     get 'settings', to: 'settings#index', as: :settings
     get 'reports', to: 'reports#index', as: :reports
     get 'integrations', to: 'integrations#index', as: :integrations
     get 'security', to: 'security#index', as: :security
   end
+  
 
   
   resources :projects do
