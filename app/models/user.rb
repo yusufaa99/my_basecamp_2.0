@@ -12,7 +12,7 @@ class User < ApplicationRecord
   def admin?
     self.admin == true
   end
-
+  
   # Associations for projects membership
   has_many :project_memberships, dependent: :destroy
   has_many :projects, through: :project_memberships

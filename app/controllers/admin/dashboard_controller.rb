@@ -4,13 +4,16 @@ module Admin
     before_action :require_admin
 
     def index
-      # Placeholder: render the admin dashboard overview
+      @total_users = User.count
+      @total_projects = Project.count
+      @total_tasks = Task.count
     end
 
     private
 
+    
     def require_admin
-      redirect_to root_path, alert: "Access denied." unless current_user.admin?
+      redirect_to root_path, alert: "You are not authorized to perform this action." unless current_user.admin?
     end
   end
 end
