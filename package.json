@@ -7,4 +7,11 @@
   "devDependencies": {
     "webpack-dev-server": "3"
   }
+
+  {
+    "name": "basecamp",
+    "version": "1.0.0",
+    "license": "MIT"
+  }
+  
 }
