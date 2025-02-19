@@ -8,6 +8,10 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+ /*
+ *= require custom
+ */
+
  .message {
     padding: 10px;
     border-bottom: 1px solid #ddd;
@@ -25,5 +29,11 @@
     font-size: 1.2rem;
     font-weight: bold;
     color: #777;
+  }
+  
+  button.btn {
+    display: inline-block; /* Ensures button aligns properly */
+    margin: 0; /* Remove any default margin */
+    padding: 0.25rem 0.5rem; /* Match Bootstrap's btn-sm padding */
   }
   

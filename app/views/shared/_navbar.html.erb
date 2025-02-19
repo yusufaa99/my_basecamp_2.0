@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <div class="container">
     <a class="navbar-brand" href="<%= root_path %>">MyBaseCamp2</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,22 +46,22 @@
                 <%= link_to "Tasks", project_tasks_path(first_project), class: "nav-link" if first_project %>
               <% end %>
             </li>
-            
             <li class="nav-item">
               <%= link_to "Invitations", invitations_path, class: "nav-link" %>
             </li>
-            
             <li class="nav-item">
               <%= link_to "Help", help_path, class: "nav-link" %>
             </li>
           </ul>
         <% end %>
       <% end %>
+
       <!-- Search form visible to all users -->
       <form class="d-flex me-2" action="<%= search_path %>" method="get">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+
       <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
           <li class="nav-item">

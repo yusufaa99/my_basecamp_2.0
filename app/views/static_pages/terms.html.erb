@@ -1,2 +1,30 @@
-<h1>StaticPages#terms</h1>
-<p>Find me in app/views/static_pages/terms.html.erb</p>
+<section class="hero-section text-white text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Terms & Conditions</h1>
+    <p class="lead">Your agreement with us when using our services.</p>
+  </div>
+</section>
+
+<section class="content-section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h2 class="text-primary">1. Acceptance of Terms</h2>
+        <p>By accessing and using this website, you agree to comply with these terms. If you do not agree, please discontinue use immediately.</p>
+
+        <h2 class="text-primary">2. User Responsibilities</h2>
+        <p>Users must not engage in any activity that disrupts or harms the website or other users.</p>
+
+        <h2 class="text-primary">4. Modifications</h2>
+        <p>We reserve the right to update these terms at any time. Continued use means acceptance of changes.</p>
+
+        <h2 class="text-primary">5. Contact Us</h2>
+        <p>Questions? <%= link_to "Contact Us", contact_path, class: "text-decoration-none text-primary fw-bold" %>.</p>
+
+        <div class="text-center mt-4">
+          <%= link_to "Back to Home", root_path, class: "btn btn-lg btn-outline-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
