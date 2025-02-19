@@ -1,6 +1,9 @@
 <h2>Tasks for <%= @project.title %></h2>
 
-<%= link_to "New Task", new_project_task_path(@project), class: "btn btn-primary mb-3" %>
+<% if current_user.admin? || current_user == @project.creator || @project.members.include?(current_user) %>
+  <%= link_to "New Task", new_project_task_path(@project), class: "btn btn-primary mb-3" %>
+<% end %>
+
 
 <table class="table table-striped">
   <thead>
@@ -24,9 +27,12 @@
         <td><%= task.assigned_user ? task.assigned_user.name : "Unassigned" %></td>
 
         <td>
-          <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-sm btn-warning" %>
-          <%= button_to "Delete", project_task_path(@project, task), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+          <% if current_user.admin? || current_user == task.assigned_user || current_user == @project.creator %>
+            <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-sm btn-warning" %>
+            <%= button_to "Delete", project_task_path(@project, task), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+          <% end %>
         </td>
+
       </tr>
     <% end %>
   </tbody>
