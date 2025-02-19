@@ -21,7 +21,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[8.0]
       ## Admin Flag
       t.boolean :admin, default: false, null: false
 
-      t.timestamps null: false
+      # t.timestamps null: false
 
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false
