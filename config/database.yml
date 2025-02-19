@@ -51,3 +51,10 @@ cable:
   username: myapp
   password: <%= ENV["MY_BASECAMP2_DATABASE_PASSWORD"] %>
   host: localhost
+
+queue:
+  <<: *default
+  database: basecamp_queue_production
+  username: myapp
+  password: <%= ENV["MY_BASECAMP2_QUEUE_DATABASE_PASSWORD"] %>
+  host: localhost
