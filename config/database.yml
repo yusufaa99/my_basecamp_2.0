@@ -45,6 +45,13 @@ production:
   host: localhost
 
 
+cache:
+    <<: *default
+    database: basecamp_cache_production
+    username: myapp
+    password: <%= ENV["MY_BASECAMP2_DATABASE_PASSWORD"] %>
+    host: localhost
+
 cable:
   <<: *default
   database: basecamp_cable
