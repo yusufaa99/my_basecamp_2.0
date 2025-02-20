@@ -119,10 +119,13 @@ They can edit or delete user accounts as needed.
 4. Logging Out
 Users can log out anytime using the "Log Out" button, which redirects them back to the home page.
 
-5. Running the Application Locally
+5. Running the Application Locally or use hosted link (https://my-basecamp-2-nzmf.onrender.com/)
+Note: This is been on Render.
 To start the Rails server and access the app:
 ```
 $> rails server
+or
+On a Browser enter: https://my-basecamp-2-nzmf.onrender.com/
 ```
 
 ### The Core Team
