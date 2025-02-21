@@ -59,26 +59,27 @@ queue:
 #   <<: *default
 #   database: basecamp_production
 #   username: myapp
-#   password: <%= ENV["DATABASE_URL"] %>
+#   password: <%= ENV.fetch("MY_BASECAMP2_PRODUCTION_PASSWORD", "letmein") %>
 #   host: localhost
+
 
 # cache:
 #     <<: *default
 #     database: basecamp_cache_production
 #     username: myapp
-#     password: <%= ENV["DATABASE_URL"] %>
+#     password: <%= ENV.fetch("MY_BASECAMP2_PRODUCTION_PASSWORD", "letmein") %>
 #     host: localhost
 
 # cable:
 #   <<: *default
 #   database: basecamp_cable
 #   username: myapp
-#   password: <%= ENV["DATABASE_URL"] %>
+#   password: <%= ENV.fetch("MY_BASECAMP2_PRODUCTION_PASSWORD", "letmein") %>
 #   host: localhost
 
 # queue:
 #   <<: *default
 #   database: basecamp_queue_production
 #   username: myapp
-#   password: <%= ENV["DATABASE_URL"] %>
+#   password: <%= ENV.fetch("MY_BASECAMP2_PRODUCTION_PASSWORD", "letmein") %>
 #   host: localhost
