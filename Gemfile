@@ -25,6 +25,7 @@ gem "devise"
 
 gem "sass-rails"
 gem "webpacker"
+# gem 'solid_queue'
 
 gem "will_paginate"
 # gem "kaminari"
@@ -35,7 +36,6 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
-gem "solid_queue"
 gem "solid_cable"
 
 gem "dotenv-rails"
