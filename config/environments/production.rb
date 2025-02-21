@@ -16,10 +16,22 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   # Cache assets for far-future expiry since they are all digest stamped.
-  config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
+  # Run rails dev:cache to toggle Action Controller caching.
+  if Rails.root.join("tmp/caching-dev.txt").exist?
+    config.action_controller.perform_caching = true
+    # config.action_controller.enable_fragment_cache_logging = true
+    config.public_file_server.headers = { "cache-control" => "public, max-age=#{2.days.to_i}" }
+    # config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
+  else
+    config.action_controller.perform_caching = false
+  end
+
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
+
+  # Enable server timing.
+  config.server_timing = true
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
@@ -35,7 +47,9 @@ Rails.application.configure do
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
-  config.logger   = ActiveSupport::TaggedLogging.logger(STDOUT)
+  # config.logger   = ActiveSupport::TaggedLogging.logger(STDOUT)
+  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
@@ -102,16 +116,4 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "yourdomain.com",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV["EMAIL_USERNAME"], # Set this in Render environment variables
-    password: ENV["EMAIL_PASSWORD"]   # Set this in Render environment variables
-  }
-  config.action_mailer.default_url_options = { host: "your-app.onrender.com" }
-
 end

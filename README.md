@@ -120,7 +120,7 @@ They can edit or delete user accounts as needed.
 Users can log out anytime using the "Log Out" button, which redirects them back to the home page.
 
 5. Running the Application Locally or use hosted link (https://my-basecamp-2-nzmf.onrender.com/)
-Note: This is been on Render.
+Note: This has been deployed on Render. So, to run it locally change your database.yml
 To start the Rails server and access the app:
 ```
 $> rails server
