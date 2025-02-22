@@ -25,7 +25,7 @@ gem "devise"
 
 gem "sass-rails"
 gem "webpacker"
-# gem 'solid_queue'
+gem 'solid_queue'
 
 gem "will_paginate"
 # gem "kaminari"
