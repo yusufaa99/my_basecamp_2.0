@@ -37,7 +37,7 @@
     padding: 0.25rem 0.5rem; /* Match Bootstrap's btn-sm padding */
   }
   
-  /* #flash-messages {
+  #flash-messages {
     z-index: 1050; /* Higher than the navbar if needed */
-  } */
+  }
   
