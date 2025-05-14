@@ -1,0 +1,16 @@
+<h2>New Task for <%= @project.title %></h2>
+
+<!-- Show error messages -->
+<% if @task.errors.any? %>
+  <div class="alert alert-danger">
+    <h4><%= pluralize(@task.errors.count, "error") %> prevented this task from being saved:</h4>
+    <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= render "form", project: @project, task: @task %>
+<%= link_to "Back to Project", project_path(@project), class: "btn btn-secondary" %>

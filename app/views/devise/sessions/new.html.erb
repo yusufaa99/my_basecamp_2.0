@@ -1,0 +1,36 @@
+<section class="auth-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-lg p-4">
+          <h2 class="text-center text-primary mb-4">Log In</h2>
+
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label fw-bold" %>
+              <%= f.email_field :email, autofocus: true, class: "form-control form-control-lg" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password, class: "form-label fw-bold" %>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-lg" %>
+            </div>
+
+            <div class="mb-3 form-check">
+              <%= f.check_box :remember_me, class: "form-check-input" %>
+              <%= f.label :remember_me, class: "form-check-label" %>
+            </div>
+
+            <div class="d-grid">
+              <%= f.submit "Log in", class: "btn btn-lg btn-primary" %>
+            </div>
+          <% end %>
+
+          <div class="text-center mt-4">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

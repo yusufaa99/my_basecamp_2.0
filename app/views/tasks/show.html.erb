@@ -1,0 +1,4 @@
+<h1>Task: <%= @task.title %></h1>
+<p>Description: <%= @task.description %></p>
+<p>Assigned to: <%= @task.user.email if @task.user %></p>
+<%= link_to 'Back to Project', project_path(@project) %>

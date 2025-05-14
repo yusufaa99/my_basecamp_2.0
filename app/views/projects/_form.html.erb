@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="text-center text-primary mb-4">
+        <%= @project.new_record? ? "Create a New Project" : "Edit Project" %>
+      </h2>
+
+      <%= form_with model: @project, local: true do |f| %>
+        <!-- Error Messages -->
+        <% if @project.errors.any? %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Oops! Something went wrong:</strong>
+            <ul>
+              <% @project.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+
+        <!-- Title Field -->
+        <div class="mb-3">
+          <%= f.label :title, "Project Title", class: "form-label fw-bold" %>
+          <%= f.text_field :title, class: "form-control form-control-lg", placeholder: "Enter project title", required: true %>
+        </div>
+
+        <!-- Description Field -->
+        <div class="mb-3">
+          <%= f.label :description, "Project Description", class: "form-label fw-bold" %>
+          <%= f.text_area :description, rows: 5, class: "form-control", placeholder: "Describe your project", required: true %>
+        </div>
+
+        <!-- Deadline Field -->
+        <div class="mb-3">
+          <%= f.label :deadline, "Project Deadline", class: "form-label fw-bold" %>
+          <%= f.datetime_select :deadline, class: "form-control" %>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <%= f.submit @project.new_record? ? "Create Project" : "Update Project", class: "btn btn-success btn-lg px-5" %>
+          <%= link_to "Cancel", projects_path, class: "btn btn-outline-secondary btn-lg px-4 ms-3" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Custom JavaScript -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Auto-dismiss error messages after 5 seconds
+    setTimeout(() => {
+      let alert = document.querySelector(".alert");
+      if (alert) {
+        alert.classList.add("fade-out");
+        setTimeout(() => alert.remove(), 500);
+      }
+    }, 5000);
+  });
+</script>
+
+<!-- Custom CSS -->
+<style>
+  .fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+</style>
