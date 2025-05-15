@@ -1,0 +1,5 @@
+$("#messages").append("<%= j render @message %>");
+$("textarea").val("");
+
+// Show a success message
+$("#flash-messages").html('<div class="alert alert-success">Message posted!</div>').fadeIn().delay(2000).fadeOut();

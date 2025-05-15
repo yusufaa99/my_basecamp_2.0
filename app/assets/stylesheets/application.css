@@ -1,0 +1,43 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+ /*
+ *= require custom
+ */
+
+ .message {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .placeholder-chart {
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #777;
+  }
+  
+  button.btn {
+    display: inline-block; /* Ensures button aligns properly */
+    margin: 0; /* Remove any default margin */
+    padding: 0.25rem 0.5rem; /* Match Bootstrap's btn-sm padding */
+  }
+  
+  #flash-messages {
+    z-index: 1050; /* Higher than the navbar if needed */
+  }
+  

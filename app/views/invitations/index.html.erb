@@ -1,0 +1,31 @@
+<h1>Your Project Invitations</h1>
+
+<% if @invitations.any? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Invited By</th>
+        <th>Sent At</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invitations.each do |invite| %>
+        <tr>
+          <td><%= link_to invite.project.title, project_path(invite.project) %></td>
+          <td><%= invite.inviter.email %></td>
+          <td><%= invite.created_at.strftime("%B %d, %Y") %></td>
+          <td><%= invite.status.capitalize %></td>
+          <td>
+            <%= link_to "Accept", accept_invitation_path(invite.token), class: "btn btn-sm btn-success" %>
+            <%= link_to "Decline", decline_invitation_path(invite.token), class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>You have no pending invitations.</p>
+<% end %>

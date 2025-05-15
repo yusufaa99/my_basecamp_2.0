@@ -1,0 +1,96 @@
+<div class="container mt-4">
+  <div class="row">
+    <!-- Welcome & User Info -->
+    <div class="col-md-12">
+      <div class="card shadow-sm border-0 rounded-lg p-4 text-center bg-primary text-white">
+        <h1 class="fw-bold">Welcome, <%= current_user.name %>!</h1>
+        <p class="lead">Manage your projects efficiently from here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Overview -->
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 p-3 text-center">
+        <h4 class="fw-bold text-primary">Total Projects</h4>
+        <p class="display-6"><%= current_user.projects.count %></p>
+        <%= link_to "View Projects", projects_path, class: "btn btn-outline-primary btn-sm mt-2" %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 p-3 text-center">
+        <h4 class="fw-bold text-success">Tasks Pending</h4>
+        <p class="display-6"><%= current_user.tasks.where(status: 'pending').count %></p>
+        
+        <% if @project.present? %>
+          <%= link_to "View Tasks", project_tasks_path(@project), class: "btn btn-primary" %>
+        <% else %>
+          <p class="text-muted">No project selected.</p>
+        <% end %>
+      </div>
+    </div>
+
+
+
+    <!-- Notifications Section -->
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 p-3 text-center">
+        <h4 class="fw-bold text-danger">Unread Notifications</h4>
+        <p class="display-6" id="notification-count"><%= current_user.notifications.unread.count %></p>
+        <%= link_to "View Notifications", notifications_path, class: "btn btn-outline-danger btn-sm mt-2" %>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0 p-4">
+        <h4 class="fw-bold">Quick Actions</h4>
+        <div class="d-flex flex-wrap gap-2 mt-2">
+          <%= link_to "Create Project", new_project_path, class: "btn btn-primary" %>
+          
+          <% if @project.present? %>
+            <%= link_to "Create Task", new_project_task_path(@project), class: "btn btn-success" %>
+            <%= link_to "Invite Members", new_project_project_invitation_path(@project), class: "btn btn-warning" %>
+          <% else %>
+            <p class="text-muted">Select a project to create tasks or invite members.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Activity Feed -->
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0 p-4">
+        <h4 class="fw-bold">Recent Activity</h4>
+        <% if current_user.activities.any? %>
+          <ul class="list-group mt-2">
+            <% current_user.activities.order(created_at: :desc).limit(5).each do |activity| %>
+              <li class="list-group-item">
+                <strong><%= activity.action %></strong> - <%= time_ago_in_words(activity.created_at) %> ago
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-muted">No recent activity.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Placeholder for Future Charts (Optional) -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card shadow-sm border-0 p-4 text-center">
+        <h4 class="fw-bold">Project Progress (Coming Soon)</h4>
+        <div class="placeholder-chart bg-light p-5">📊 Charts will go here</div>
+      </div>
+    </div>
+  </div>
+</div>

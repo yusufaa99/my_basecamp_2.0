@@ -1,0 +1,48 @@
+<%= form_with model: [@project, @task], local: true do |f| %>
+
+  <% if @task.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@task.errors.count, "error") %> prevented this task from being saved:</h4>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :title, "Task Title" %>
+    <%= f.text_field :title, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, "Task Description" %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :due_date, "Due Date" %>
+    <%= f.date_field :due_date, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :priority, "Priority Level" %>
+    <%= f.select :priority, (1..5).to_a, { prompt: "Select Priority" }, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :user_id, "Assign to" %>
+    
+    <%= f.collection_select :assigned_to, User.all, :id, :name, { prompt: "Select User" }, class: "form-control" %>
+
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :status, "Status" %>
+    <%= f.select :status, ["pending", "in-progress", "completed"], { prompt: "Select Status" }, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Save Task", class: "btn btn-primary" %>
+
+<% end %>

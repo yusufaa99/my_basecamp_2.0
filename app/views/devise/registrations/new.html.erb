@@ -1,0 +1,41 @@
+<section class="auth-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-lg p-4">
+          <h2 class="text-center text-primary mb-4">Sign Up</h2>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label fw-bold" %>
+              <%= f.email_field :email, autofocus: true, class: "form-control form-control-lg" %>
+            </div>
+            <div class="mb-3">
+              <%= f.label :password, class: "form-label fw-bold" %>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-lg" %>
+            </div>
+            <div class="mb-3">
+              <%= f.label :password_confirmation, class: "form-label fw-bold" %>
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-control-lg" %>
+            </div>
+            <!-- Additional fields -->
+            <div class="mb-3">
+              <%= f.label :name, "Name", class: "form-label fw-bold" %>
+              <%= f.text_field :name, class: "form-control form-control-lg" %>
+            </div>
+            <div class="mb-3">
+              <%= f.label :bio, "Bio", class: "form-label fw-bold" %>
+              <%= f.text_area :bio, rows: 3, class: "form-control form-control-lg" %>
+            </div>
+            <div class="d-grid">
+              <%= f.submit "Sign up", class: "btn btn-lg btn-primary" %>
+            </div>
+          <% end %>
+
+          <div class="text-center mt-3">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

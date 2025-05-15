@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Us - Project Hub</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'contact', media: 'all' %>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="contact-hero">
+    <div class="overlay"></div>
+    <div class="contact-content">
+      <h1>Contact Us</h1>
+      <p>We'd love to hear from you! Get in touch with us for any inquiries.</p>
+    </div>
+  </div>
+
+  <!-- Contact Form Section -->
+  <div class="contact-section">
+    <h2>Send Us a Message</h2>
+
+    <%= form_with url: contact_path, method: :post, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Your Name" %>
+        <%= f.text_field :name, required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, "Your Email" %>
+        <%= f.email_field :email, required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :message, "Your Message" %>
+        <%= f.text_area :message, rows: 4, required: true %>
+      </div>
+
+      <%= f.submit "Send Message", class: "btn-submit" %>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <p class="success-message"><%= flash[:notice] %></p>
+    <% end %>
+
+  </div>
+
+</body>
+</html>
