@@ -11,6 +11,38 @@
  /*
  *= require custom
  */
+body.dark-mode {
+  background-color: #121212 !important;
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .navbar {
+  background-color: #1f1f1f !important;
+}
+
+body.dark-mode .nav-link,
+body.dark-mode .navbar-brand {
+  color: #f5f5f5 !important;
+}
+
+body.dark-mode .btn-outline-primary {
+  border-color: #90caf9;
+  color: #90caf9;
+}
+
+body.dark-mode .btn-outline-primary:hover {
+  background-color: #90caf9;
+  color: #000;
+}
+
+body.dark-mode .btn-outline-secondary {
+  border-color: #bbb;
+  color: #bbb;
+}
+
+
+
+
 
  .message {
     padding: 10px;
