@@ -1,10 +1,33 @@
-<footer class="footer fixed-bottom bg-dark text-light text-center py-2">
+<footer class="footer fixed-bottom bg-light text-dark text-center py-3 shadow-sm">
   <div class="container">
-    <p class="mb-1">&copy; <%= Time.current.year %> MyBaseCamp2. All Rights Reserved.</p>
-    <p class="small">
-      <%= link_to "About Us", about_path, class: "text-light mx-2 text-decoration-none" %> |
-      <%= link_to "Contact", contact_path, class: "text-light mx-2 text-decoration-none" %> |
-      <%= link_to "Terms", terms_path, class: "text-light mx-2 text-decoration-none" %>
+    <p class="mb-1 fw-semibold">&copy; <%= Time.current.year %> MyBaseCamp2. All Rights Reserved.</p>
+    <p class="mb-0 small">
+      <%= link_to "About Us", about_path, class: "text-dark mx-2 text-decoration-none footer-link" %> |
+      <%= link_to "Contact", contact_path, class: "text-dark mx-2 text-decoration-none footer-link" %> |
+      <%= link_to "Terms", terms_path, class: "text-dark mx-2 text-decoration-none footer-link" %>
     </p>
   </div>
+
+  <style>
+    .footer {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .footer-link:hover {
+      color: #0d6efd; /* Bootstrap primary blue */
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    @media (max-width: 576px) {
+      .footer .container {
+        padding: 0 10px;
+      }
+
+      .footer p {
+        font-size: 0.85rem;
+      }
+    }
+    
+  </style>
 </footer>
