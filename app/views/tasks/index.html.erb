@@ -1,0 +1,39 @@
+<h2>Tasks for <%= @project.title %></h2>
+
+<% if current_user.admin? || current_user == @project.creator || @project.members.include?(current_user) %>
+  <%= link_to "New Task", new_project_task_path(@project), class: "btn btn-primary mb-3" %>
+<% end %>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Due Date</th>
+      <th>Priority</th>
+      <th>Assigned To</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.status.capitalize %></td>
+        <td><%= task.try(:due_date)&.strftime("%b %d, %Y") || "No due date" %></td>
+        <td><%= task.try(:priority) || "Not Set" %></td>
+        
+        <td><%= task.assigned_user ? task.assigned_user.name : "Unassigned" %></td>
+
+        <td>
+          <% if current_user.admin? || current_user == task.assigned_user || current_user == @project.creator %>
+            <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-sm btn-warning" %>
+            <%= button_to "Delete", project_task_path(@project, task), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
