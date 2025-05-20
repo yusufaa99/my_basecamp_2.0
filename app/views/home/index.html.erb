@@ -1,103 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>BaseCamp</title>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow-x: hidden; /* Prevent horizontal scroll */
-    }
+  <head>
+    <title>MyBaseCamp2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+  </head>
 
-    .hero {
-      position: relative;
-      left: 0;
-      right: 0;
-      width: 100vw; /* Full viewport width */
-      height: 100vh;
-      background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-    }
-
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      padding: 20px;
-    }
-
-    .hero-content h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .btn-primary, .btn-success {
-      padding: 12px 24px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-
-    .btn-primary {
-      background-color: #007bff;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background-color: #0056b3;
-    }
-
-    .btn-success {
-      background-color: #28a745;
-      color: white;
-    }
-
-    .btn-success:hover {
-      background-color: #1e7e34;
-    }
-  </style>
-</head>
-
-<body>
-  <!-- Hero Section -->
-  <div class="hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h1>Welcome to My BaseCamp!!! Organize, Collaborate, and Succeed</h1>
-      <p>A simple and efficient way to manage your projects, collaborate with your team, and stay organized.</p>
-      <% if user_signed_in? %>
-        <a href="<%= projects_path %>" class="btn-primary">Go to Your Projects</a>
-      <% else %>
-        <a href="<%= new_user_registration_path %>" class="btn-success">Get Started</a>
-      <% end %>
-    </div>
-  </div>
-</body>
+  <body>
+    <%# Allow full-width for home page (hero section) %>
+    <% if controller.controller_name == 'home' && controller.action_name == 'index' %>
+      <%= yield %>
+    <% else %>
+      <div class="container">
+        <%= yield %>
+      </div>
+    <% end %>
+  </body>
 </html>
