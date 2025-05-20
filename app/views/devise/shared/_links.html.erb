@@ -9,69 +9,6 @@
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
   <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
 <% end %>
-<% unless controller_name == 'sessions' %>
-  <div class="text-center mt-3">
-    <%= link_to new_session_path(resource_name),
-                class: "text-decoration-none d-block mb-2 text-primary",
-                title: "Already have an account? Log in here." do %>
-      <i class="bi bi-box-arrow-in-right me-1"></i> Log in
-    <% end %>
-  </div>
-<% end %>
-
-<% if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <div class="text-center">
-    <%= link_to new_registration_path(resource_name),
-                class: "text-decoration-none d-block mb-2 text-success",
-                title: "New here? Create your account." do %>
-      <i class="bi bi-person-plus me-1"></i> Sign up
-    <% end %>
-  </div>
-<% end %>
-
-<% if devise_mapping.recoverable? && !['passwords', 'registrations'].include?(controller_name) %>
-  <div class="text-center">
-    <%= link_to new_password_path(resource_name),
-                class: "text-decoration-none d-block mb-2 text-warning",
-                title: "Reset your password if you forgot it." do %>
-      <i class="bi bi-shield-lock me-1"></i> Forgot your password?
-    <% end %>
-  </div>
-<% end %>
-
-<% if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <div class="text-center">
-    <%= link_to new_confirmation_path(resource_name),
-                class: "text-decoration-none d-block mb-2 text-info",
-                title: "Resend confirmation email to activate your account." do %>
-      <i class="bi bi-envelope-check me-1"></i> Didn't receive confirmation instructions?
-    <% end %>
-  </div>
-<% end %>
-
-<% if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <div class="text-center">
-    <%= link_to new_unlock_path(resource_name),
-                class: "text-decoration-none d-block mb-2 text-danger",
-                title: "Resend unlock instructions to regain access." do %>
-      <i class="bi bi-unlock me-1"></i> Didn't receive unlock instructions?
-    <% end %>
-  </div>
-<% end %>
-
-<% if devise_mapping.omniauthable? %>
-  <div class="text-center mt-4">
-    <% resource_class.omniauth_providers.each do |provider| %>
-      <%= button_to omniauth_authorize_path(resource_name, provider),
-                    method: :post,
-                    class: "btn btn-outline-dark btn-sm mb-2",
-                    data: { turbo: false },
-                    title: "Continue using your #{OmniAuth::Utils.camelize(provider)} account" do %>
-        <i class="bi bi-box-arrow-in-right me-1"></i> Sign in with <%= OmniAuth::Utils.camelize(provider) %>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
   <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
