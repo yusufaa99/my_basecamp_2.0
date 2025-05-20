@@ -1,37 +1,52 @@
-<section class="auth-section">
+<section class="auth-section py-5 bg-light">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card shadow-lg p-4">
-          <h2 class="text-center text-primary mb-4">Sign Up</h2>
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="col-lg-6 col-md-8">
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+          <h2 class="text-center text-primary mb-2">Create an Account</h2>
+          <p class="text-center text-muted mb-4">Join us and get started in just a few seconds</p>
+
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+            
+            <!-- Name -->
             <div class="mb-3">
-              <%= f.label :email, class: "form-label fw-bold" %>
-              <%= f.email_field :email, autofocus: true, class: "form-control form-control-lg" %>
+              <%= f.label :name, "Full Name", class: "form-label fw-semibold" %>
+              <%= f.text_field :name, class: "form-control form-control-lg", placeholder: "John Doe", required: true, autocomplete: "name" %>
             </div>
+
+            <!-- Email -->
             <div class="mb-3">
-              <%= f.label :password, class: "form-label fw-bold" %>
-              <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-lg" %>
+              <%= f.label :email, class: "form-label fw-semibold" %>
+              <%= f.email_field :email, class: "form-control form-control-lg", placeholder: "you@example.com", autofocus: true, required: true, autocomplete: "email" %>
             </div>
+
+            <!-- Password -->
             <div class="mb-3">
-              <%= f.label :password_confirmation, class: "form-label fw-bold" %>
-              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-control-lg" %>
+              <%= f.label :password, class: "form-label fw-semibold" %>
+              <%= f.password_field :password, class: "form-control form-control-lg", placeholder: "Choose a strong password", required: true, autocomplete: "new-password" %>
             </div>
-            <!-- Additional fields -->
+
+            <!-- Confirm Password -->
             <div class="mb-3">
-              <%= f.label :name, "Name", class: "form-label fw-bold" %>
-              <%= f.text_field :name, class: "form-control form-control-lg" %>
+              <%= f.label :password_confirmation, "Confirm Password", class: "form-label fw-semibold" %>
+              <%= f.password_field :password_confirmation, class: "form-control form-control-lg", placeholder: "Re-enter your password", required: true, autocomplete: "new-password" %>
             </div>
+
+            <!-- Bio -->
             <div class="mb-3">
-              <%= f.label :bio, "Bio", class: "form-label fw-bold" %>
-              <%= f.text_area :bio, rows: 3, class: "form-control form-control-lg" %>
+              <%= f.label :bio, "Short Bio", class: "form-label fw-semibold" %>
+              <%= f.text_area :bio, rows: 3, class: "form-control form-control-lg", placeholder: "Tell us a bit about yourself..." %>
             </div>
-            <div class="d-grid">
-              <%= f.submit "Sign up", class: "btn btn-lg btn-primary" %>
+
+            <!-- Submit -->
+            <div class="d-grid mt-4">
+              <%= f.submit "Sign Up", class: "btn btn-primary btn-lg rounded-pill" %>
             </div>
           <% end %>
 
-          <div class="text-center mt-3">
+          <!-- Links -->
+          <div class="text-center mt-4">
+            <small class="text-muted">Already have an account?</small><br>
             <%= render "devise/shared/links" %>
           </div>
         </div>
