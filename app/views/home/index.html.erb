@@ -9,12 +9,15 @@
       padding: 0;
       height: 100%;
       width: 100%;
+      overflow-x: hidden; /* Prevent horizontal scroll */
     }
 
     .hero {
       position: relative;
+      left: 0;
+      right: 0;
       width: 100vw; /* Full viewport width */
-      height: 100vh; /* Full viewport height */
+      height: 100vh;
       background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d');
       background-size: cover;
       background-position: center;
@@ -24,7 +27,6 @@
       justify-content: center;
       color: white;
       text-align: center;
-      overflow: hidden;
     }
 
     .overlay {
@@ -33,7 +35,7 @@
       left: 0;
       height: 100%;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.5); /* Overlay for readability */
+      background-color: rgba(0, 0, 0, 0.5);
       z-index: 1;
     }
 
@@ -61,7 +63,6 @@
       border-radius: 5px;
       text-decoration: none;
       transition: background-color 0.3s;
-      display: inline-block;
     }
 
     .btn-primary {
