@@ -6,7 +6,7 @@ class ContactMailer < ApplicationMailer
     @message = message
 
     mail(
-      to: "mattemmsmartprince@gmail.com", # Replace with your support email
+      to: "yusufyahaya065@gmail.com", # Replace with your support email
       subject: "New Contact Form Submission from #{name}",
       reply_to: email
     )
