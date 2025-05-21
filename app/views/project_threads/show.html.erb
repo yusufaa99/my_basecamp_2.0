@@ -1,7 +1,5 @@
 <div class="container mt-4">
   <!-- Thread Title & Description -->
-
-  
   <div class="card shadow-sm">
     <div class="card-body">
       <h1 class="card-title"><%= @project_thread.title %></h1>
@@ -9,17 +7,13 @@
     </div>
   </div>
 
-
   <hr>
-
 
   <!-- Messages Section -->
   <div class="card shadow-sm">
     <div class="card-header bg-primary text-white">
       <h3 class="mb-0">Messages</h3>
     </div>
-
-
     <div class="card-body">
       <% if @project_thread.messages.any? %>
         <ul class="list-group">
@@ -48,8 +42,6 @@
     </div>
   </div>
 
-
-
   <hr>
 
   <!-- Form to Post a New Message -->
@@ -68,7 +60,6 @@
   </div>
 
   <hr>
-
 
   <!-- Back to Project -->
   <div class="text-center">
