@@ -1,16 +1,18 @@
-<div class="container mt-4">
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <h2 class="text-center text-primary mb-4">
-        <%= @project.new_record? ? "Create a New Project" : "Edit Project" %>
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-header bg-primary text-white text-center py-4 rounded-top">
+      <h2 class="fw-bold mb-0">
+        <%= @project.new_record? ? "🚀 Create a New Project" : "✏️ Edit Project" %>
       </h2>
+    </div>
 
+    <div class="card-body p-5">
       <%= form_with model: @project, local: true do |f| %>
         <!-- Error Messages -->
         <% if @project.errors.any? %>
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Oops! Something went wrong:</strong>
-            <ul>
+            <strong>⚠️ Oops! Something went wrong:</strong>
+            <ul class="mb-0 mt-2 ps-3">
               <% @project.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
               <% end %>
@@ -20,39 +22,40 @@
         <% end %>
 
         <!-- Title Field -->
-        <div class="mb-3">
-          <%= f.label :title, "Project Title", class: "form-label fw-bold" %>
-          <%= f.text_field :title, class: "form-control form-control-lg", placeholder: "Enter project title", required: true %>
+        <div class="mb-4">
+          <%= f.label :title, "📌 Project Title", class: "form-label fw-semibold" %>
+          <%= f.text_field :title, class: "form-control form-control-lg rounded-3 shadow-sm", placeholder: "e.g., AI Chatbot Development", required: true %>
         </div>
 
         <!-- Description Field -->
-        <div class="mb-3">
-          <%= f.label :description, "Project Description", class: "form-label fw-bold" %>
-          <%= f.text_area :description, rows: 5, class: "form-control", placeholder: "Describe your project", required: true %>
+        <div class="mb-4">
+          <%= f.label :description, "📝 Project Description", class: "form-label fw-semibold" %>
+          <%= f.text_area :description, rows: 5, class: "form-control rounded-3 shadow-sm", placeholder: "Briefly describe what this project is about...", required: true %>
         </div>
 
         <!-- Deadline Field -->
-        <div class="mb-3">
-          <%= f.label :deadline, "Project Deadline", class: "form-label fw-bold" %>
-          <%= f.datetime_select :deadline, class: "form-control" %>
+        <div class="mb-4">
+          <%= f.label :deadline, "📅 Deadline", class: "form-label fw-semibold" %>
+          <div class="border rounded-3 p-3 shadow-sm bg-light">
+            <%= f.datetime_select :deadline, { default: Time.zone.now + 1.day }, { class: "form-select d-inline w-auto me-2 mb-2" } %>
+          </div>
         </div>
 
         <!-- Submit Button -->
-        <div class="text-center">
-          <%= f.submit @project.new_record? ? "Create Project" : "Update Project", class: "btn btn-success btn-lg px-5" %>
-          <%= link_to "Cancel", projects_path, class: "btn btn-outline-secondary btn-lg px-4 ms-3" %>
+        <div class="text-center mt-5">
+          <%= f.submit @project.new_record? ? "✅ Create Project" : "💾 Update Project", class: "btn btn-success btn-lg px-5 me-3" %>
+          <%= link_to "Cancel", projects_path, class: "btn btn-outline-secondary btn-lg px-5" %>
         </div>
       <% end %>
     </div>
   </div>
 </div>
 
-<!-- Custom JavaScript -->
+<!-- Auto-dismiss JS -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Auto-dismiss error messages after 5 seconds
+  document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
-      let alert = document.querySelector(".alert");
+      const alert = document.querySelector(".alert");
       if (alert) {
         alert.classList.add("fade-out");
         setTimeout(() => alert.remove(), 500);
@@ -61,10 +64,19 @@
   });
 </script>
 
-<!-- Custom CSS -->
+<!-- Fade-out animation -->
 <style>
   .fade-out {
     opacity: 0;
     transition: opacity 0.5s ease-out;
+  }
+
+  .form-label {
+    font-size: 1.1rem;
+  }
+
+  .form-control::placeholder {
+    font-style: italic;
+    color: #999;
   }
 </style>
