@@ -1,245 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Learn about BaseCamp, a project management tool designed to empower teams to collaborate and succeed.">
   <title>About Us - BaseCamp</title>
   <%= stylesheet_link_tag 'about', media: 'all' %>
-  <style>
-    /* Reset and Base Styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body, html {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background-color: #f9f9f9;
-    }
-
-    /* Hero Section */
-    .about-hero {
-      position: relative;
-      width: 100vw;
-      min-height: 60vh; /* Reduced height for better content visibility */
-      background-image: url('https://images.unsplash.com/photo-1516321310762-47d19c0e7c53');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      overflow: hidden;
-    }
-
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.6);
-      z-index: 1;
-    }
-
-    .about-content {
-      position: relative;
-      z-index: 2;
-      max-width: 90%;
-      padding: 2rem;
-    }
-
-    .about-content h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .about-content p {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* About Details Section */
-    .about-section {
-      max-width: 1200px;
-      margin: 3rem auto;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .about-section h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      color: #007bff;
-      margin-bottom: 1rem;
-    }
-
-    .about-section p {
-      max-width: 800px;
-      margin: 0 auto 2rem;
-      font-size: 1.1rem;
-      color: #555;
-    }
-
-    .about-section ul {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .about-section li {
-      background-color: #fff;
-      padding: 1.5rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      font-size: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    .about-section li:hover {
-      transform: translateY(-5px);
-    }
-
-    /* CEO Section */
-    .ceo-section {
-      background-color: #fff;
-      padding: 3rem 1rem;
-    }
-
-    .ceo-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2rem;
-      align-items: center;
-      padding: 2rem;
-    }
-
-    .ceo-image {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 0.5rem;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .ceo-info h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      color: #007bff;
-      margin-bottom: 0.5rem;
-    }
-
-    .ceo-info h3 {
-      font-size: 1.25rem;
-      color: #333;
-      margin-bottom: 1rem;
-    }
-
-    .ceo-info p {
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 1rem;
-    }
-
-    .ceo-info a {
-      color: #007bff;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .ceo-info a:hover {
-      color: #0056b3;
-      text-decoration: underline;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .about-hero {
-        min-height: 50vh;
-      }
-
-      .about-content h1 {
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
-      }
-
-      .about-content p {
-        font-size: clamp(0.875rem, 2vw, 1rem);
-      }
-
-      .ceo-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .ceo-image {
-        max-width: 200px;
-        margin: 0 auto;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .about-section {
-        padding: 1rem;
-      }
-
-      .about-section li {
-        padding: 1rem;
-      }
-
-      .ceo-container {
-        padding: 1rem;
-      }
-    }
-
-    /* Accessibility */
-    a:focus, button:focus {
-      outline: 2px solid #007bff;
-      outline-offset: 2px;
-    }
-  </style>
 </head>
 <body>
+
   <!-- Hero Section -->
-  <section class="about-hero" aria-label="About BaseCamp">
+  <div class="about-hero">
     <div class="overlay"></div>
     <div class="about-content">
-      <h1>About BaseCamp</h1>
+      <h1>About My BaseCamp</h1>
       <p>Empowering teams to collaborate, track progress, and achieve success.</p>
     </div>
-  </section>
+  </div>
 
   <!-- About Details Section -->
-  <section class="about-section" aria-label="Our Mission and Features">
+  <div class="about-section">
     <h2>Our Mission</h2>
-    <p>We created BaseCamp to provide an easy-to-use project management solution that helps teams work together efficiently.</p>
+    <p>We created Project Hub to provide an easy-to-use project management solution that helps teams work together efficiently.</p>
 
     <h2>Why Choose Us?</h2>
     <ul>
-      <li>Simple and intuitive interface</li>
-      <li>Real-time collaboration</li>
-      <li>Task and project tracking</li>
-      <li>Secure file sharing</li>
+      <li>✅ Simple and intuitive interface</li>
+      <li>✅ Real-time collaboration</li>
+      <li>✅ Task and project tracking</li>
+      <li>✅ Secure file sharing</li>
     </ul>
-  </section>
+  </div>
 
   <!-- CEO Section -->
-  <section class="ceo-section" aria-label="Meet Our Founder">
+  <div class="ceo-section">
     <div class="ceo-container">
-      <img src="/assets/ceo.png" alt="Yusuf Yahaya, Founder of BaseCamp" class="ceo-image">
+      <img src="/assets/ceo.png" alt="CEO Picture" class="ceo-image">
       <div class="ceo-info">
         <h2>Meet Our Founder</h2>
-        <h3>Yusuf Yahaya Usman Fulani</h3>
-        <p>Yusuf Yahaya Usman Fulani is the CEO of CLOUD ARMY ltd and a passionate entrepreneur and software engineer with over 10 years of experience in project management tools. His vision for BaseCamp is to make collaboration seamless, efficient, and enjoyable.</p>
-        <p><strong>Contact:</strong> <a href="mailto:yusufyahaya065@gmail.com@gmail.com">yusufyahaya065@gmail.com</a></p>
-        <p><strong>WhatsApp/Calls:</strong> <a href="tel:+2347064493997">+234 813 837 9022</a></p>
+        <h3>Matthew Prince Emmanuel</h3>
+        <p>Prince Emmanuel is a passionate entrepreneur and software engineer with over 10 years of experience in project management tools. His vision for BaseCamp is to make collaboration seamless, efficient, and enjoyable.</p>
+        <p><strong>Contact:</strong> mattemmsmartprince@gmail.com</p>
+        <p><strong>Whatsapp/Calls:</strong> +234 706 449 3997</p>
       </div>
     </div>
-  </section>
+  </div>
+
 </body>
 </html>
