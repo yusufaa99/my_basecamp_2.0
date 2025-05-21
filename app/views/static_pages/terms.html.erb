@@ -1,29 +1,48 @@
-<section class="hero-section text-white text-center">
-  <div class="container">
+<!-- Hero Section with Background Image -->
+<section class="hero-section text-white text-center d-flex align-items-center justify-content-center" style="background: url('<%= asset_path("terms-hero.jpg") %>') center/cover no-repeat; height: 60vh; position: relative;">
+  <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6);"></div>
+  <div class="container position-relative">
     <h1 class="display-4 fw-bold">Terms & Conditions</h1>
-    <p class="lead">Your agreement with us when using our services.</p>
+    <p class="lead">Please read carefully before using our services.</p>
   </div>
 </section>
 
+
+<!-- Content Section -->
 <section class="content-section py-5">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
-        <h2 class="text-primary">1. Acceptance of Terms</h2>
-        <p>By accessing and using this website, you agree to comply with these terms. If you do not agree, please discontinue use immediately.</p>
+      <div class="col-lg-9 col-md-10">
 
-        <h2 class="text-primary">2. User Responsibilities</h2>
-        <p>Users must not engage in any activity that disrupts or harms the website or other users.</p>
-
-        <h2 class="text-primary">4. Modifications</h2>
-        <p>We reserve the right to update these terms at any time. Continued use means acceptance of changes.</p>
-
-        <h2 class="text-primary">5. Contact Us</h2>
-        <p>Questions? <%= link_to "Contact Us", contact_path, class: "text-decoration-none text-primary fw-bold" %>.</p>
-
-        <div class="text-center mt-4">
-          <%= link_to "Back to Home", root_path, class: "btn btn-lg btn-outline-primary" %>
+        <div class="mb-5">
+          <h2 class="text-primary">1. Acceptance of Terms</h2>
+          <p>By accessing or using this website, you confirm that you accept these Terms & Conditions and agree to comply with them. If you do not agree to these terms, you must not use our site.</p>
         </div>
+
+        <div class="mb-5">
+          <h2 class="text-primary">2. User Responsibilities</h2>
+          <p>All users are expected to act responsibly. You agree not to misuse the services or interfere with the website’s operations, security, or accessibility for others.</p>
+        </div>
+
+        <div class="mb-5">
+          <h2 class="text-primary">3. Intellectual Property</h2>
+          <p>All content on this site—including text, images, graphics, and logos—is owned or licensed by us and is protected by applicable intellectual property laws. You may not reproduce or distribute content without permission.</p>
+        </div>
+
+        <div class="mb-5">
+          <h2 class="text-primary">4. Modifications</h2>
+          <p>We may update these terms from time to time. Any changes will be posted on this page, and continued use of the site indicates your agreement to the revised terms.</p>
+        </div>
+
+        <div class="mb-5">
+          <h2 class="text-primary">5. Contact Us</h2>
+          <p>If you have any questions or concerns regarding these Terms & Conditions, feel free to <%= link_to "Contact Us", contact_path, class: "text-decoration-none fw-bold text-primary" %>.</p>
+        </div>
+
+        <div class="text-center mt-5">
+          <%= link_to "← Back to Home", root_path, class: "btn btn-lg btn-outline-primary px-4 py-2" %>
+        </div>
+
       </div>
     </div>
   </div>
