@@ -1,24 +1,151 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Contact Us - Project Hub</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag 'contact', media: 'all' %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="..." crossorigin="anonymous" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    /* Hero Section */
+    .contact-hero {
+      position: relative;
+      background: url('/assets/contact-bg.jpg') center/cover no-repeat;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+    .contact-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .contact-hero .contact-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .contact-section {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      border-radius: 12px;
+    }
+
+    .contact-section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .btn-submit {
+      background-color: #0066cc;
+      color: white;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+      background-color: #004999;
+    }
+
+    .success-message {
+      margin-top: 1.5rem;
+      color: green;
+      font-weight: bold;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .contact-info .info-box {
+      flex: 1 1 250px;
+      padding: 1rem;
+    }
+
+    .contact-info i {
+      font-size: 2rem;
+      color: #0066cc;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Map */
+    .map {
+      width: 100%;
+      height: 300px;
+      margin-top: 2rem;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .contact-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <!-- Hero Section -->
   <div class="contact-hero">
-    <div class="overlay"></div>
     <div class="contact-content">
       <h1>Contact Us</h1>
       <p>We'd love to hear from you! Get in touch with us for any inquiries.</p>
     </div>
   </div>
 
-  <!-- Contact Form Section -->
+  <!-- Contact Form & Info -->
   <div class="contact-section">
+
     <h2>Send Us a Message</h2>
 
     <%= form_with url: contact_path, method: :post, local: true do |f| %>
@@ -34,7 +161,7 @@
 
       <div class="form-group">
         <%= f.label :message, "Your Message" %>
-        <%= f.text_area :message, rows: 4, required: true %>
+        <%= f.text_area :message, rows: 5, required: true %>
       </div>
 
       <%= f.submit "Send Message", class: "btn-submit" %>
@@ -43,6 +170,35 @@
     <% if flash[:notice] %>
       <p class="success-message"><%= flash[:notice] %></p>
     <% end %>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <div class="info-box">
+        <i class="fas fa-envelope"></i>
+        <p><a href="mailto:support@projecthub.com">support@projecthub.com</a></p>
+      </div>
+      <div class="info-box">
+        <i class="fab fa-whatsapp"></i>
+        <p><a href="https://wa.me/2348138379022" target="_blank">+234 813 837 9022</a></p>
+      </div>
+      <div class="info-box">
+        <i class="fas fa-phone"></i>
+        <p><a href="tel:+2348138379022">+234 813 837 9022</a></p>
+      </div>
+    </div>
+
+    <!-- Google Map -->
+    <!-- Google Map Section -->
+    <section class="map-section" aria-label="Our Location">
+      <h2>Find Us Here</h2>
+      <div class="map-container">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3922.6562905653445!2d7.4346315114348585!3d10.527714163686992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104d3554176b0593%3A0x1b19eb49bb898acb!2sICT%20Centre%20Kad%20ICT%20Hub!5e0!3m2!1sen!2sng!4v1747824706924!5m2!1sen!2sng"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
 
   </div>
 
