@@ -1,37 +1,37 @@
 <div class="container mt-4">
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <h1 class="text-center text-primary mb-3"><%= @project.title %></h1>
-      <p class="text-muted text-center"><strong>Created by:</strong> <%= @project.creator.email %></p>
-      <p class="text-muted text-center"><strong>Deadline:</strong> <%= @project.deadline.strftime("%B %d, %Y") if @project.deadline %></p>
-      <hr>
 
-      <h4 class="mb-3">Project Description</h4>
+  <!-- Project Overview -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body text-center">
+      <h1 class="text-primary mb-2"><%= @project.title %></h1>
+      <p class="text-muted mb-1"><strong>Created by:</strong> <%= @project.creator.email %></p>
+      <p class="text-muted mb-3"><strong>Deadline:</strong> <%= @project.deadline&.strftime("%B %d, %Y") %></p>
+      <hr>
+      <h4 class="mb-2">Project Description</h4>
       <p class="lead"><%= @project.description %></p>
     </div>
   </div>
 
   <!-- Project Members -->
-  <div class="card shadow-sm mt-4">
+  <div class="card shadow-sm mb-4">
     <div class="card-body">
-      <h2 class="mb-3">Project Members</h2>
+      <h2 class="mb-3"><i class="bi bi-people-fill me-2"></i>Project Members</h2>
       <ul class="list-group">
         <% @project.project_memberships.each do |membership| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <%= membership.user.email %> (<strong><%= membership.role.capitalize %></strong>)
-
+            <span><%= membership.user.email %> (<strong><%= membership.role.capitalize %></strong>)</span>
             <% if current_user == @project.creator && membership.user != @project.creator %>
-              <div>
+              <div class="d-flex gap-2">
                 <% if membership.role == "member" %>
-                  <%= button_to "Make Admin", promote_to_admin_project_path(@project, user_id: membership.user.id), 
-                        method: :patch, class: "btn btn-sm btn-success" %>
+                  <%= button_to "Make Admin", promote_to_admin_project_path(@project, user_id: membership.user.id),
+                      method: :patch, class: "btn btn-sm btn-success" %>
                 <% elsif membership.role == "admin" %>
-                  <%= button_to "Demote to Member", demote_to_member_project_path(@project, membership.user.id), 
-                        method: :patch, class: "btn btn-sm btn-warning" %>
+                  <%= button_to "Demote", demote_to_member_project_path(@project, membership.user.id),
+                      method: :patch, class: "btn btn-sm btn-warning" %>
                 <% end %>
-
-                <%= button_to "Remove", remove_member_project_path(@project, user_id: membership.user.id), 
-                      method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+                <%= button_to "Remove", remove_member_project_path(@project, user_id: membership.user.id),
+                    method: :delete, data: { confirm: "Are you sure?" },
+                    class: "btn btn-sm btn-danger" %>
               </div>
             <% end %>
           </li>
@@ -41,98 +41,92 @@
   </div>
 
   <!-- Attachments Section -->
-<div class="card shadow-sm mt-4">
-  <div class="card-body">
-    <h2 class="mb-3">Attachments</h2>
-    <% if @project.attachments.any? %>
-      <table class="table table-bordered">
-        <thead class="table-light">
-          <tr>
-            <th>File</th>
-            <th>Format</th>
-            <th>Uploaded By</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @project.attachments.each do |attachment| %>
-            <tr>
-              <td>
-                <% if attachment.file.attached? %>
-                  <%= link_to "Download File", rails_blob_path(attachment.file, disposition: "attachment"), class: "btn btn-sm btn-info" %>
-                <% elsif attachment.file_url.present? %>
-                  <a href="<%= attachment.file_url %>" target="_blank"><%= attachment.file_url %></a>
-                <% else %>
-                  No File Provided
-                <% end %>
-              </td>
-              <td><%= attachment.file_format.upcase %></td>
-              <td><%= attachment.user.email %></td>
-              <td>
-                <%= button_to "Delete", project_attachment_path(@project, attachment), 
-                      method: :delete, data: { confirm: "Are you sure?" }, 
-                      class: "btn btn-sm btn-danger" %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p class="text-muted">No attachments yet.</p>
-    <% end %>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="mb-3"><i class="bi bi-paperclip me-2"></i>Attachments</h2>
+      <% if @project.attachments.any? %>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>File</th>
+                <th>Format</th>
+                <th>Uploaded By</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @project.attachments.each do |attachment| %>
+                <tr>
+                  <td>
+                    <% if attachment.file.attached? %>
+                      <%= link_to "Download", rails_blob_path(attachment.file, disposition: "attachment"), class: "btn btn-sm btn-outline-info" %>
+                    <% elsif attachment.file_url.present? %>
+                      <a href="<%= attachment.file_url %>" target="_blank"><%= attachment.file_url %></a>
+                    <% else %>
+                      <span class="text-muted">No File</span>
+                    <% end %>
+                  </td>
+                  <td><%= attachment.file_format.upcase %></td>
+                  <td><%= attachment.user.email %></td>
+                  <td>
+                    <%= button_to "Delete", project_attachment_path(@project, attachment),
+                        method: :delete, data: { confirm: "Are you sure?" },
+                        class: "btn btn-sm btn-outline-danger" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="text-muted">No attachments yet.</p>
+      <% end %>
+    </div>
   </div>
-</div>
 
+  <!-- Add Attachment -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h3 class="mb-3"><i class="bi bi-upload me-2"></i>Add New Attachment</h3>
+      <%= form_with model: [@project, Attachment.new], local: true, html: { multipart: true } do |f| %>
+        <div class="mb-3">
+          <%= f.label :file, "Upload File", class: "form-label fw-bold" %>
+          <%= f.file_field :file, class: "form-control" %>
+        </div>
 
+        <div class="mb-3">
+          <%= f.label :file_format, "File Format", class: "form-label fw-bold" %>
+          <%= f.select :file_format,
+                options_for_select([["PNG", "png"], ["JPG", "jpg"], ["PDF", "pdf"], ["TXT", "txt"]]),
+                {}, class: "form-select" %>
+        </div>
 
-<!-- Add New Attachment -->
-<div class="card shadow-sm mt-4">
-  <div class="card-body">
-    <h3 class="mb-3">Add a New Attachment</h3>
-    <%= form_with model: [@project, Attachment.new], local: true, html: { multipart: true } do |f| %>
-      
-      <div class="mb-3">
-        <%= f.label :file, "Upload File", class: "form-label fw-bold" %>
-        <%= f.file_field :file, class: "form-control" %>
-      </div>
-
-      <div class="mb-3">
-        <%= f.label :file_format, "File Format", class: "form-label fw-bold" %>
-        <%= f.select :file_format, 
-              options_for_select([["PNG", "png"], ["JPG", "jpg"], ["PDF", "pdf"], ["TXT", "txt"]]), 
-              {}, class: "form-select" %>
-      </div>
-
-      <div class="text-center">
-        <%= f.submit "Add Attachment", class: "btn btn-primary" %>
-      </div>
-
-    <% end %>
+        <div class="text-center">
+          <%= f.submit "Add Attachment", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
-
-
-
 
   <!-- Threads Section -->
-  <div class="card shadow-sm mt-4">
+  <div class="card shadow-sm mb-4">
     <div class="card-body">
-      <h2 class="mb-3">Threads</h2>
+      <h2 class="mb-3"><i class="bi bi-chat-left-dots me-2"></i>Threads</h2>
       <% if @project.project_threads.any? %>
         <ul class="list-group">
           <% @project.project_threads.each do |thread| %>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div>
-                <strong><%= thread.title %></strong> (Created by: <%= thread.user.email %>)
+                <strong><%= thread.title %></strong> (by <%= thread.user.email %>)
               </div>
-              <div>
-                <%= link_to "View", project_project_thread_path(@project, thread), class: "btn btn-sm btn-info" %>
-
+              <div class="d-flex gap-2">
+                <%= link_to "View", project_project_thread_path(@project, thread), class: "btn btn-sm btn-outline-info" %>
                 <% if current_user == @project.creator %>
-                  <%= link_to "Edit", edit_project_project_thread_path(@project, thread), class: "btn btn-sm btn-warning" %>
-                  <%= button_to "Delete", project_project_thread_path(@project, thread), 
-                        method: :delete, data: { confirm: "Are you sure?" }, 
-                        class: "btn btn-sm btn-danger" %>
+                  <%= link_to "Edit", edit_project_project_thread_path(@project, thread), class: "btn btn-sm btn-outline-warning" %>
+                  <%= button_to "Delete", project_project_thread_path(@project, thread),
+                        method: :delete, data: { confirm: "Are you sure?" },
+                        class: "btn btn-sm btn-outline-danger" %>
                 <% end %>
               </div>
             </li>
@@ -150,7 +144,7 @@
     </div>
   </div>
 
-  <!-- Actions -->
+  <!-- Action Buttons -->
   <div class="text-center mt-4">
     <%= link_to "Invite Member", new_project_project_invitation_path(@project), class: "btn btn-primary me-2" %>
     <%= link_to "Edit Project", edit_project_path(@project), class: "btn btn-secondary me-2" %>
@@ -158,10 +152,9 @@
   </div>
 </div>
 
-<!-- Custom CSS for Enhancements -->
+<!-- Optional Custom Styling -->
 <style>
   .card {
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: 12px;
   }
 </style>
