@@ -20,4 +20,6 @@ class User < ApplicationRecord
   has_many :tasks, through: :projects, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :activities, dependent: :destroy
+  has_one_attached :avatar
+
 end

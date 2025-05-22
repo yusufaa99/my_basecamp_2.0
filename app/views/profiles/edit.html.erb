@@ -1,21 +1,53 @@
-<h1>Edit Your Profile</h1>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm rounded-4">
+        <div class="card-header text-center bg-primary text-white">
+          <h2 class="mb-0">Edit Your Profile</h2>
+        </div>
 
-<%= form_for(current_user, url: profile_path, method: :patch) do |f| %>
-  <div class="mb-3">
-    <%= f.label :email, class: "form-label" %>
-    <%= f.email_field :email, class: "form-control", disabled: true %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :name, "Name", class: "form-label" %>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :bio, "Bio", class: "form-label" %>
-    <%= f.text_area :bio, rows: 4, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= f.submit "Update Profile", class: "btn btn-primary" %>
-  </div>
-<% end %>
+        <div class="card-body">
+          <%= form_for(current_user, url: profile_path, method: :patch, html: { multipart: true }) do |f| %>
 
+            <!-- Avatar -->
+            <div class="text-center mb-4">
+              <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar, class: "rounded-circle img-thumbnail", style: "width: 120px; height: 120px;" %>
+              <% else %>
+                <%= image_tag 'placeholder-avatar.png', class: "rounded-circle img-thumbnail", style: "width: 120px; height: 120px;" %>
+              <% end %>
+              <div class="mt-2">
+                <%= f.label :avatar, "Change Profile Picture", class: "form-label fw-semibold" %>
+                <%= f.file_field :avatar, class: "form-control" %>
+              </div>
+            </div>
 
+            <!-- Email (read-only) -->
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label fw-semibold" %>
+              <%= f.email_field :email, class: "form-control", disabled: true %>
+            </div>
+
+            <!-- Name -->
+            <div class="mb-3">
+              <%= f.label :name, "Full Name", class: "form-label fw-semibold" %>
+              <%= f.text_field :name, class: "form-control", placeholder: "e.g. Yusuf Yahaya Usman" %>
+            </div>
+
+            <!-- Bio -->
+            <div class="mb-3">
+              <%= f.label :bio, "Short Bio", class: "form-label fw-semibold" %>
+              <%= f.text_area :bio, rows: 4, class: "form-control", placeholder: "Tell us a bit about yourself..." %>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <%= f.submit "Update Profile", class: "btn btn-primary btn-lg rounded-pill" %>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
