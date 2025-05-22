@@ -12,13 +12,13 @@
             <!-- Avatar -->
             <div class="text-center mb-4">
               <% if current_user.avatar.attached? %>
-                <%= image_tag current_user.avatar, class: "rounded-circle img-thumbnail", style: "width: 120px; height: 120px;" %>
+                <%= image_tag url_for(current_user.avatar), class: "rounded-circle img-thumbnail", style: "width: 120px; height: 120px;" %>
               <% else %>
                 <%= image_tag 'placeholder-avatar.png', class: "rounded-circle img-thumbnail", style: "width: 120px; height: 120px;" %>
               <% end %>
               <div class="mt-2">
                 <%= f.label :avatar, "Change Profile Picture", class: "form-label fw-semibold" %>
-                <%= f.file_field :avatar, class: "form-control" %>
+                <%= f.file_field :avatar, class: "form-control", id: "avatarUpload" %>
               </div>
             </div>
 
@@ -51,3 +51,22 @@
     </div>
   </div>
 </div>
+
+<!-- Avatar Preview JavaScript -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const avatarInput = document.getElementById("avatarUpload");
+    const previewImage = document.querySelector(".img-thumbnail");
+
+    avatarInput.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+</script>
