@@ -70,7 +70,7 @@ Node.js & Yarn → Required for managing assets
 $> npm install -g yarn
 
 2. Clone the Repository
-$> git clone https://github.com/yourusername/my_basecamp_2.git OR git clone https://gitea.com/yourusername/my_basecamp_2.git
+$> git clone https://github.com/yusufaa99/my_basecamp_2.0.git OR git clone https://git.us.qwasar.io/my_basecamp_2_178304_mtag9z/my_basecamp_2.git
 $> cd my_basecamp_2
 
 3. Install Dependencies
@@ -129,7 +129,7 @@ On a Browser enter: https://my-basecamp-2-k0ib.onrender.com
 ```
 
 ### The Core Team
-Programmer: Matthew Prince Emmanuel
+Programmer: Yusuf Yahaya Usman Fulani
 
 
 <span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
