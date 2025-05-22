@@ -1,45 +1,45 @@
 <div class="container mt-4">
 
-  <!-- Welcome Banner -->
-  <div class="row mb-5">
-    <div class="col-12">
+  <!-- Welcome & User Info -->
+  <div class="row my-5">
+    <div class="col-md-12">
       <div class="card shadow-lg border-0 rounded-4 text-white position-relative overflow-hidden"
-           style="background-image: url('/assets/dashboard-bg.jpg'); background-size: cover; background-position: center; min-height: 250px;">
-        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column justify-content-center align-items-center p-4 text-center">
-          <h1 class="fw-bold display-5 mb-2">Welcome, <%= current_user.name %>!</h1>
-          <p class="lead fs-5 mb-0">Manage your projects efficiently from your dashboard.</p>
+        style="background-image: url('/assets/dashboard-bg.jpg'); background-size: cover; background-position: center; min-height: 250px;">
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column justify-content-center align-items-center p-4">
+          <h1 class="fw-bold display-5">Welcome, <%= current_user.name %>!</h1>
+          <p class="lead fs-5">Manage your projects efficiently from here.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Dashboard Overview -->
-  <div class="row g-4">
-    <!-- Total Projects -->
+  <!-- Dashboard Overview (Consider extracting this row into a partial if reused) -->
+  <div class="row mt-4">
     <div class="col-md-4">
-      <div class="card shadow-sm border-0 p-4 text-center h-100">
+      <div class="card shadow-sm border-0 p-3 text-center hover-shadow">
+        <i class="fas fa-folder-open fa-2x text-primary mb-2"></i>
         <h4 class="fw-bold text-primary">Total Projects</h4>
         <p class="display-6"><%= current_user.projects.count %></p>
         <%= link_to "View Projects", projects_path, class: "btn btn-outline-primary btn-sm mt-2" %>
       </div>
     </div>
 
-    <!-- Tasks Pending -->
     <div class="col-md-4">
-      <div class="card shadow-sm border-0 p-4 text-center h-100">
+      <div class="card shadow-sm border-0 p-3 text-center hover-shadow">
+        <i class="fas fa-tasks fa-2x text-success mb-2"></i>
         <h4 class="fw-bold text-success">Tasks Pending</h4>
         <p class="display-6"><%= current_user.tasks.where(status: 'pending').count %></p>
         <% if @project.present? %>
-          <%= link_to "View Tasks", project_tasks_path(@project), class: "btn btn-outline-success btn-sm mt-2" %>
+          <%= link_to "View Tasks", project_tasks_path(@project), class: "btn btn-primary btn-sm mt-2" %>
         <% else %>
-          <p class="text-muted mt-2">No project selected.</p>
+          <p class="text-muted">No project selected.</p>
         <% end %>
       </div>
     </div>
 
-    <!-- Unread Notifications -->
     <div class="col-md-4">
-      <div class="card shadow-sm border-0 p-4 text-center h-100">
+      <div class="card shadow-sm border-0 p-3 text-center hover-shadow">
+        <i class="fas fa-bell fa-2x text-danger mb-2"></i>
         <h4 class="fw-bold text-danger">Unread Notifications</h4>
         <p class="display-6" id="notification-count"><%= current_user.notifications.unread.count %></p>
         <%= link_to "View Notifications", notifications_path, class: "btn btn-outline-danger btn-sm mt-2" %>
@@ -47,34 +47,33 @@
     </div>
   </div>
 
-  <!-- Quick Actions and Recent Activity -->
-  <div class="row mt-5 g-4">
-    <!-- Quick Actions -->
+  <!-- Quick Actions -->
+  <div class="row mt-4">
     <div class="col-md-6">
-      <div class="card shadow-sm border-0 p-4 h-100">
-        <h4 class="fw-bold mb-3">Quick Actions</h4>
-        <div class="d-flex flex-wrap gap-2">
+      <div class="card shadow-sm border-0 p-4 hover-shadow">
+        <h4 class="fw-bold mb-3"><i class="fas fa-bolt text-primary me-2"></i>Quick Actions</h4>
+        <div class="d-flex flex-wrap gap-2 mt-2">
           <%= link_to "Create Project", new_project_path, class: "btn btn-primary" %>
+
           <% if @project.present? %>
             <%= link_to "Create Task", new_project_task_path(@project), class: "btn btn-success" %>
-            <%= link_to "Invite Members", new_project_project_invitation_path(@project), class: "btn btn-warning text-white" %>
+            <%= link_to "Invite Members", new_project_project_invitation_path(@project), class: "btn btn-warning" %>
           <% else %>
-            <p class="text-muted mt-2">Select a project to create tasks or invite members.</p>
+            <p class="text-muted">Select a project to create tasks or invite members.</p>
           <% end %>
         </div>
       </div>
     </div>
 
-    <!-- Recent Activity -->
+    <!-- Activity Feed -->
     <div class="col-md-6">
-      <div class="card shadow-sm border-0 p-4 h-100">
-        <h4 class="fw-bold mb-3">Recent Activity</h4>
+      <div class="card shadow-sm border-0 p-4 hover-shadow">
+        <h4 class="fw-bold mb-3"><i class="fas fa-history text-secondary me-2"></i>Recent Activity</h4>
         <% if current_user.activities.any? %>
-          <ul class="list-group list-group-flush">
+          <ul class="list-group mt-2">
             <% current_user.activities.order(created_at: :desc).limit(5).each do |activity| %>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span><strong><%= activity.action %></strong></span>
-                <small class="text-muted"><%= time_ago_in_words(activity.created_at) %> ago</small>
+              <li class="list-group-item">
+                <strong><%= activity.action %></strong> - <%= time_ago_in_words(activity.created_at) %> ago
               </li>
             <% end %>
           </ul>
@@ -86,12 +85,29 @@
   </div>
 
   <!-- Placeholder for Future Charts -->
-  <div class="row mt-5">
-    <div class="col-12">
-      <div class="card shadow-sm border-0 p-5 text-center">
-        <h4 class="fw-bold mb-3">Project Progress (Coming Soon)</h4>
-        <div class="placeholder-chart bg-light p-5 rounded">📊 Charts will go here</div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card shadow-sm border-0 p-4 text-center hover-shadow">
+        <h4 class="fw-bold">Project Progress <small class="text-muted">(Coming Soon)</small></h4>
+        <div class="placeholder-chart bg-light p-5 rounded">
+          📊 Charts will go here
+          <br>
+          <small class="text-muted">Ask me to integrate <strong>Chart.js</strong> or <strong>ApexCharts</strong> anytime.</small>
+        </div>
       </div>
     </div>
   </div>
+
 </div>
+
+<!-- Optional: Hover Effect Class -->
+<style>
+  .hover-shadow:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+</style>
+
+<!-- Make sure you have FontAwesome included -->
+<!-- You can use CDN -->
+<%= javascript_include_tag "https://kit.fontawesome.com/your-kit-id.js", crossorigin: "anonymous" %>
