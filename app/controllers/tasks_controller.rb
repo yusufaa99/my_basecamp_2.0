@@ -12,6 +12,14 @@ class TasksController < ApplicationController
     else
       @tasks = @project.tasks.where(assigned_to: current_user.id)
     end
+    @project = Project.find(params[:project_id])
+  @tasks = @project.tasks.includes(:assigned_user)
+
+  if params[:search].present?
+    keyword = "%#{params[:search]}%"
+    @tasks = @tasks.where("title ILIKE ? OR description ILIKE ?", keyword, keyword)
+  end
+  
   end
   
 
