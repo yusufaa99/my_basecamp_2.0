@@ -1,7 +1,6 @@
 databases:
   - name: basecamp2productiondb
     databaseName: basecamp2productiondb
-    user: my_basecamp2
     plan: free
 
 services:
@@ -10,8 +9,7 @@ services:
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
-    # Uncomment below if you're on a paid plan to run migration before starting the app
-    # preDeployCommand: "bundle exec rails db:migrate"
+    # preDeployCommand: "bundle exec rails db:migrate" # enable only if you're on a paid plan
     startCommand: "bundle exec rails server"
     envVars:
       - key: DATABASE_URL
