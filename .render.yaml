@@ -19,6 +19,6 @@ services:
           name: basecamp2productiondb
           property: connectionString
       - key: RAILS_MASTER_KEY
-        value: your-actual-master-key
+        value: c20c5127d47f0e8ec22b5d9d1924c398
       - key: WEB_CONCURRENCY
         value: 2
