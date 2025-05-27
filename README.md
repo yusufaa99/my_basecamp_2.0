@@ -125,7 +125,7 @@ To start the Rails server and access the app:
 ```
 $> rails server
 or
-On a Browser enter: https://my-basecamp-2-k0ib.onrender.com
+On a Browser enter: https://my-basecamp-2-0.onrender.com
 ```
 
 ### The Core Team
