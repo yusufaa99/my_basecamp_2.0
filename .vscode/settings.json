@@ -1,0 +1,16 @@
+{
+    "workbench.colorCustomizations": {
+  "terminal.foreground": "#00FF00",           // Text color (green)
+  "terminal.background": "#000000",           // Background color (black)
+  "terminalCursor.foreground": "#FFFFFF",     // Cursor color (white)
+  "terminal.ansiRed": "#FF0000",              // Custom color for "Red" text
+  "terminal.ansiGreen": "#00FF00",            // Custom color for "Green" text
+  "terminal.ansiYellow": "#FFFF00",           // And so on...
+  "terminal.ansiBlue": "#0000FF",
+  "terminal.ansiMagenta": "#FF00FF",
+  "terminal.ansiCyan": "#00FFFF",
+  "terminal.ansiWhite": "#FFFFFF",
+  "terminal.ansiBlack": "#000000"
+}
+
+}
